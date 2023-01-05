@@ -22,6 +22,11 @@ Tempest is minimalistic weather application that provides you with reliable data
 ### Backend
 * Pocketbase
 
+
+### Preview
+
+https://user-images.githubusercontent.com/60293321/210835954-bb7ecfe0-cd2a-41b0-b68e-4b9d04af172c.mov
+
 ## How to use
 Just click link [here](https://tempest-five.vercel.app) to go to application hosted on Vercel(♡)
 
