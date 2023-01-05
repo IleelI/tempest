@@ -3,7 +3,7 @@
 ## Tempest 🌩️
 Tempest is minimalistic weather application that provides you with reliable data from OpenWeather API.
 
-### Features:
+### Features ✨
 * Use geolocation to get most accurate weather for your location
 * Save your favorite locations to get them in a blink of an eye
 * See detailed weather maps for current location
@@ -11,7 +11,8 @@ Tempest is minimalistic weather application that provides you with reliable data
 * Register/Login
 
 ## Tech stack 🔌
-### Frontend
+
+### Frontend 🌕
 * Next.js
 * Typescript
 * Tanstack Query - React Query
@@ -19,13 +20,15 @@ Tempest is minimalistic weather application that provides you with reliable data
 * FeatherIcons
 
 
-### Backend
+### Backend 🌑
 * Pocketbase
 
 
-### Preview
+### UI Preview 📸
 
-https://user-images.githubusercontent.com/60293321/210835954-bb7ecfe0-cd2a-41b0-b68e-4b9d04af172c.mov
+https://user-images.githubusercontent.com/60293321/210836232-09a1850f-761e-4b32-b8a2-92cd4d6b2f09.mov
+
+
 
 ## How to use
 Just click link [here](https://tempest-five.vercel.app) to go to application hosted on Vercel(♡)
