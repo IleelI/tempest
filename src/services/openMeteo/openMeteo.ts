@@ -1,9 +1,11 @@
-import { GetDailyWeatherResponse, GetTodayWeatherResponse } from "./types";
+import type { GetDailyWeatherResponse, GetTodayWeatherResponse } from "./types";
 import { add, formatISO } from "date-fns";
+import { getErrorMessage } from "../../utils/api";
 
 // Base url for openMeteo API endpoint
 const BASE_URL = "https://api.open-meteo.com/v1/forecast";
 
+// Fallback geolocation position for Gdańsk, Poland
 const fallbackLatitude = 54.3485;
 const fallbackLongitude = 18.5646;
 
@@ -29,11 +31,11 @@ export async function getDailyWeather(
 
     // Checking against non-network errors
     if (!response.ok) {
-      throw new Error(`Error! Error code: ${response.status}.`);
+      throw new Error(`Error! ${response.status}.`);
     }
     return response.json() as Promise<GetDailyWeatherResponse>;
   } catch (error) {
-    throw new Error(error as string);
+    throw new Error(getErrorMessage(error));
   }
 }
 
@@ -52,11 +54,12 @@ export async function getTodayWeather(
     const url = `${BASE_URL}?$&latitude=${latitude}&longitude=${longitude}&start_date=${startDate}&end_date=${endDate}&timezone=Europe%2FWarsaw&hourly=${HOURLY_WEATHER_FIELDS}`;
     const response = await fetch(url);
 
+    // Checking against non-network errors
     if (!response.ok) {
-      throw new Error(`Error! Error code: ${response.status}.`);
+      throw new Error(`Error! ${response.status}.`);
     }
     return response.json() as Promise<GetTodayWeatherResponse>;
   } catch (error) {
-    throw new Error(error as string);
+    throw new Error(getErrorMessage(error));
   }
 }
