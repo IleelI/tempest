@@ -7,6 +7,7 @@ import { z } from "zod";
  */
 export const serverSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
+  OPEN_WEATHER_API_KEY: z.string().min(1),
 });
 
 /**
