@@ -1,7 +1,12 @@
-export default function getNavigator() {
+export function getWindow() {
   if (typeof window === "undefined") {
     return null;
   } else {
-    return window.navigator;
+    return window;
   }
+}
+
+export function getNavigator() {
+  const window = getWindow();
+  return window ? window.navigator : null;
 }
