@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from "react";
-import getNavigator from "../../utils/browser";
+import { getNavigator } from "../../utils/browser";
 
 const getPositionOptions: PositionOptions = {
   enableHighAccuracy: true,

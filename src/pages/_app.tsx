@@ -1,23 +1,18 @@
 import { type AppType } from "next/dist/shared/lib/utils";
-import { Quicksand } from "@next/font/google";
 
 import "../styles/globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
-
-const mainFont = Quicksand({
-  weight: "variable",
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-main",
-});
+import { DarkModeProvider } from "../context/darkModeContext";
+import Container from "./_container";
 
 const queryClient = new QueryClient();
 
-const MyApp: AppType = ({ Component, pageProps }) => {
+const MyApp: AppType = (appProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className={`${mainFont.variable} font-sans`}>
-        <Component {...pageProps} />
-      </div>
+      <DarkModeProvider>
+        <Container {...appProps} />
+      </DarkModeProvider>
     </QueryClientProvider>
   );
 };
