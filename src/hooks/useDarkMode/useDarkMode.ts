@@ -20,8 +20,10 @@ function checkForDarkModePreference() {
   }
 }
 
+// TODO save preferred color scheme to local storage when
+// user manually changes it.
 export default function useDarkMode() {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   const handleDarkModeToggle = useCallback(() => {
     setIsDarkMode((prev) => !prev);

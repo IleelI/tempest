@@ -8,6 +8,13 @@ import type { AppProps, AppType } from "next/app";
 import { Quicksand } from "@next/font/google";
 import clsx from "clsx";
 import { GeolocationProvider } from "../context/geolocationContext";
+import MainLayout from "../components/mainLayout/mainLayout";
+
+const mainFont = Quicksand({
+  weight: "variable",
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-main",
+});
 
 const queryClient = new QueryClient();
 
@@ -25,11 +32,6 @@ const MyApp: AppType = (appProps) => {
 
 export default MyApp;
 
-const mainFont = Quicksand({
-  weight: "variable",
-  subsets: ["latin", "latin-ext"],
-  variable: "--font-main",
-});
 function Container({ Component, pageProps }: AppProps) {
   const { isDarkMode } = useDarkModeContext();
 
@@ -37,7 +39,9 @@ function Container({ Component, pageProps }: AppProps) {
     <div
       className={clsx([mainFont.variable, "font-sans", isDarkMode && "dark"])}
     >
-      <Component {...pageProps} />
+      <MainLayout>
+        <Component {...pageProps} />
+      </MainLayout>
     </div>
   );
 }
