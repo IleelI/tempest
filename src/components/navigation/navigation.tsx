@@ -41,12 +41,11 @@ export default function Navigation() {
       <ul className="flex items-center gap-8">
         {NAVIGATION_ITEMS.map(({ to, label, icon }) => {
           const isActive = to === asPath;
-          const isDisabled = to !== "/";
+          const isDisabled = false;
           return (
             <li
               key={label}
               className={clsx([
-                "transition-colors",
                 isActive
                   ? "text-neutral-900 dark:text-neutral-50"
                   : "text-neutral-500",
