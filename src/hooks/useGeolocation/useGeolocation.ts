@@ -53,3 +53,4 @@ export default function useGeolocation() {
     clearPosition,
   } as const;
 }
+export type UseGeolocationReturn = ReturnType<typeof useGeolocation>;
