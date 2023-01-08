@@ -7,6 +7,7 @@ import {
 import type { AppProps, AppType } from "next/app";
 import { Quicksand } from "@next/font/google";
 import clsx from "clsx";
+import { GeolocationProvider } from "../context/geolocationContext";
 
 const queryClient = new QueryClient();
 
@@ -14,7 +15,9 @@ const MyApp: AppType = (appProps) => {
   return (
     <QueryClientProvider client={queryClient}>
       <DarkModeProvider>
-        <Container {...appProps} />
+        <GeolocationProvider>
+          <Container {...appProps} />
+        </GeolocationProvider>
       </DarkModeProvider>
     </QueryClientProvider>
   );
