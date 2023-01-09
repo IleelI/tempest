@@ -1,10 +1,10 @@
-import clsx from "clsx";
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { Home, Grid, Heart, Settings } from "react-feather";
-import Link from "next/link";
+import { getFirstSegment } from "../../utils/string";
+import NavigationLink from "./navigationLink/navigationLink";
 
-type NavigationItem = {
+export type NavigationItem = {
   to: string;
   label: string;
   icon: ReactNode;
@@ -25,7 +25,6 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
     label: "Favourties",
     icon: <Heart />,
   },
-
   {
     to: "/settings",
     label: "Settings",
@@ -34,28 +33,19 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
 ];
 
 export default function Navigation() {
-  const { asPath } = useRouter();
+  const { pathname } = useRouter();
+  const currentPath = getFirstSegment(pathname);
 
   return (
     <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 rounded-lg border border-neutral-300 bg-neutral-50 px-8 py-4 shadow-main dark:border-neutral-700 dark:bg-neutral-800 dark:shadow-none">
       <ul className="flex items-center gap-8">
-        {NAVIGATION_ITEMS.map(({ to, label, icon }) => {
-          const isActive = to === asPath;
-          const isDisabled = false;
-          return (
-            <li
-              key={label}
-              className={clsx([
-                isActive
-                  ? "text-neutral-900 dark:text-neutral-50"
-                  : "text-neutral-500",
-                isDisabled && "pointer-events-none opacity-30",
-              ])}
-            >
-              <Link href={to}>{icon}</Link>
-            </li>
-          );
-        })}
+        {NAVIGATION_ITEMS.map((item) => (
+          <NavigationLink
+            key={item.label}
+            item={item}
+            currentPath={currentPath}
+          />
+        ))}
       </ul>
     </nav>
   );
