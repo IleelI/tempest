@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
 import { Home, Grid, Heart, Settings } from "react-feather";
-import { getFirstSegment } from "../../utils/string";
+import { getFirstSegment } from "utils/string";
 import NavigationLink from "./navigationLink/navigationLink";
 
 export type NavigationItem = {
@@ -18,22 +18,22 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
   },
   {
     to: "/details",
-    label: "Details",
+    label: "Weather details",
     icon: <Grid />,
   },
   {
     to: "/favourites",
-    label: "Favourties",
+    label: "Favourite locations",
     icon: <Heart />,
   },
   {
     to: "/settings",
-    label: "Settings",
+    label: "App settings",
     icon: <Settings />,
   },
 ];
 
-export default function Navigation() {
+export default function AppNavigation() {
   const { pathname } = useRouter();
   const currentPath = useMemo(() => getFirstSegment(pathname), [pathname]);
 

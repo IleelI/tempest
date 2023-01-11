@@ -1,14 +1,12 @@
 import "../styles/globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
-import {
-  DarkModeProvider,
-  useDarkModeContext,
-} from "../context/darkModeContext";
+import { DarkModeProvider } from "../context/darkModeContext";
 import type { AppProps, AppType } from "next/app";
 import { Quicksand } from "@next/font/google";
 import clsx from "clsx";
-import { GeolocationProvider } from "../context/geolocationContext";
-import MainLayout from "../components/mainLayout/mainLayout";
+import AppLayout from "components/app/appLayout/appLayout";
+import { GeolocationProvider } from "context/geolocationContext";
+import useMounted from "hooks/useMounted/useMounted";
 
 const mainFont = Quicksand({
   weight: "variable",
@@ -33,15 +31,19 @@ const MyApp: AppType = (appProps) => {
 export default MyApp;
 
 function Container({ Component, pageProps }: AppProps) {
-  const { isDarkMode } = useDarkModeContext();
+  const [isMounted] = useMounted();
 
   return (
     <div
-      className={clsx([mainFont.variable, "font-sans", isDarkMode && "dark"])}
+      className={clsx([
+        `${mainFont.variable} font-sans`,
+        // Workaround to prevent flashing when non-default theme is detected
+        !isMounted && "invisible",
+      ])}
     >
-      <MainLayout>
+      <AppLayout>
         <Component {...pageProps} />
-      </MainLayout>
+      </AppLayout>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import type { GetDailyWeatherResponse, GetTodayWeatherResponse } from "./types";
 import { add, formatISO } from "date-fns";
-import { getErrorMessage } from "../../utils/api";
+import { getErrorMessage } from "utils/api";
 
 // Base url for openMeteo API endpoint
 const BASE_URL = "https://api.open-meteo.com/v1/forecast";

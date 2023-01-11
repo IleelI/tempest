@@ -1,10 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
-import { getNavigator } from "../../utils/browser";
+import { getNavigator } from "utils/browser";
 
 const getPositionOptions: PositionOptions = {
   enableHighAccuracy: true,
 };
-const navigator = getNavigator();
 
 export default function useGeolocation() {
   const [position, setPosition] = useState<GeolocationPosition | null>(null);
@@ -20,6 +19,7 @@ export default function useGeolocation() {
   }, []);
 
   const getPosition = useCallback(() => {
+    const navigator = getNavigator();
     if (!navigator) return;
     const geolocation = navigator.geolocation;
     geolocation.getCurrentPosition(
@@ -29,21 +29,22 @@ export default function useGeolocation() {
     );
   }, [onGeolocationSuccess, onGeolocationError]);
 
-  const watchPosition = useMemo(
-    () =>
-      navigator?.geolocation.watchPosition.bind(
-        navigator.geolocation,
-        onGeolocationSuccess,
-        onGeolocationError,
-        getPositionOptions
-      ) ?? null,
-    [onGeolocationSuccess, onGeolocationError]
-  );
+  const watchPosition = useMemo(() => {
+    const navigator = getNavigator();
+    if (!navigator) return null;
+    navigator.geolocation.watchPosition.bind(
+      navigator.geolocation,
+      onGeolocationSuccess,
+      onGeolocationError,
+      getPositionOptions
+    );
+  }, [onGeolocationSuccess, onGeolocationError]);
 
-  const clearPosition = useMemo(
-    () => navigator?.geolocation.clearWatch.bind(navigator.geolocation) ?? null,
-    []
-  );
+  const clearPosition = useMemo(() => {
+    const navigator = getNavigator();
+    if (!navigator) return null;
+    navigator?.geolocation.clearWatch.bind(navigator.geolocation);
+  }, []);
 
   return {
     position,
