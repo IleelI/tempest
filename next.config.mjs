@@ -13,6 +13,6 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
-  basePath: "./src",
+  basePath: "/src",
 };
 export default config;
