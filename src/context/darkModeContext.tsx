@@ -11,9 +11,13 @@ const DarkModeContext = createContext<DarkModeContextType | undefined>(
 
 type DarkModeProviderType = {
   children: ReactNode;
+  prefersSystemSettings?: boolean;
 };
-function DarkModeProvider({ children }: DarkModeProviderType) {
-  const darkMode = useDarkMode();
+function DarkModeProvider({
+  children,
+  prefersSystemSettings,
+}: DarkModeProviderType) {
+  const darkMode = useDarkMode(prefersSystemSettings);
 
   return (
     <DarkModeContext.Provider value={darkMode}>

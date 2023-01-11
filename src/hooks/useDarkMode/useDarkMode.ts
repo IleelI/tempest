@@ -1,28 +1,33 @@
 import { useCallback, useEffect, useState } from "react";
 import {
-  updateDarkModePreferenceInStorage,
+  updateDarkModePreferenceFromStorage,
   isDarkModePreferred,
-  checkDarkModePreferenceInStorage,
-  handleDarkModeClassSync,
+  getDarkModePreferenceFromStorage,
+  updateDarkModeClassName,
 } from "./helpers";
 
-export default function useDarkMode() {
+/**
+ *
+ * @param prefersSystemSettings - boolean that controls whether currently selected theme should be overridden by any change in system theme, defaults to false
+ * @returns darkMode object containing darkMode boolean state and helper methods to manipulate it.
+ */
+export default function useDarkMode(prefersSystemSettings = false) {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const handleDarkModeToggle = useCallback(() => {
     setIsDarkMode((prev) => {
-      updateDarkModePreferenceInStorage(!prev);
+      updateDarkModePreferenceFromStorage(!prev);
       return !prev;
     });
   }, []);
 
   const handleDarkModeOn = useCallback(() => {
-    updateDarkModePreferenceInStorage(true);
+    updateDarkModePreferenceFromStorage(true);
     setIsDarkMode(true);
   }, []);
 
   const handleDarkModeOff = useCallback(() => {
-    updateDarkModePreferenceInStorage(false);
+    updateDarkModePreferenceFromStorage(false);
     setIsDarkMode(false);
   }, []);
 
@@ -32,6 +37,35 @@ export default function useDarkMode() {
   useEffect(() => {
     setIsDarkMode(isDarkModePreferred());
   }, []);
+
+  // Sync TailwindCSS dark className with Html tag
+  useEffect(() => {
+    updateDarkModeClassName(isDarkMode);
+  }, [isDarkMode]);
+
+  // Adding change listener for dark color scheme change
+  useEffect(() => {
+    // Depending of settings we've set, we either give priority to system change, or to user change
+    const handleColorSchemeChange = ({ matches }: MediaQueryListEvent) => {
+      const hasPreference = getDarkModePreferenceFromStorage();
+      if (!prefersSystemSettings && hasPreference !== null) return;
+      if (matches) {
+        setIsDarkMode(true);
+      } else {
+        setIsDarkMode(false);
+      }
+    };
+    // Listening for changes in dark mode color scheme change
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", handleColorSchemeChange);
+    // Removing old listeners on unmount
+    return () => {
+      window
+        .matchMedia("(prefers-color-scheme: dark)")
+        .removeEventListener("change", handleColorSchemeChange);
+    };
+  }, [handleDarkModeOn, handleDarkModeOff, prefersSystemSettings]);
 
   // Workaround for animating color scheme change,
   // If those classes would be set from beginning the app would flash on first render
@@ -43,35 +77,6 @@ export default function useDarkMode() {
       clearTimeout(timeoutId);
     };
   }, []);
-
-  // Sync tailwindCSS dark className with html tag
-  useEffect(() => {
-    handleDarkModeClassSync(isDarkMode);
-  }, [isDarkMode]);
-
-  // Adding change listener for system color scheme change
-  useEffect(() => {
-    // If user has changed color scheme of app by himself, we ignore any change in system preferences
-    const handleColorSchemeChange = ({ matches }: MediaQueryListEvent) => {
-      const hasPreference = checkDarkModePreferenceInStorage();
-      if (hasPreference !== null) return;
-      if (matches) {
-        setIsDarkMode(true);
-      } else {
-        setIsDarkMode(false);
-      }
-    };
-    // Listening for changes in dark mode color scheme change
-    window
-      .matchMedia("(prefers-color-scheme: dark)")
-      .addEventListener("change", handleColorSchemeChange);
-
-    return () => {
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .removeEventListener("change", handleColorSchemeChange);
-    };
-  }, [handleDarkModeOn, handleDarkModeOff]);
 
   return {
     isDarkMode,
