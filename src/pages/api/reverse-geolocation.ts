@@ -1,8 +1,8 @@
+import type { GetCityNameFromGeolocationResponse } from "services/openWeatherGeo/types";
+import { getCityNameFromGeolocation } from "services/openWeatherGeo/openWeatherGeo";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getCityNameFromGeolocation } from "services/openWeatherGeo/openWeatherGeo.js";
-import type { GetCityNameFromGeolocationResponse } from "services/openWeatherGeo/types.js";
-import { getErrorMessage } from "utils/api.js";
 import { env } from "env/server.mjs";
+import { getErrorMessage } from "utils/api";
 
 type ApiResponse = {
   error?: string;
