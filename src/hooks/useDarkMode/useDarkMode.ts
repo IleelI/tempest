@@ -33,6 +33,8 @@ export default function useDarkMode() {
     setIsDarkMode(isDarkModePreferred());
   }, []);
 
+  // Workaround for animating color scheme change,
+  // If those classes would be set from beginning the app would flash on first render
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       document.body.classList.add("transition-colors", "duration-500");

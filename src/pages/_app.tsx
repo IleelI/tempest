@@ -6,7 +6,7 @@ import { Quicksand } from "@next/font/google";
 import clsx from "clsx";
 import AppLayout from "components/app/appLayout/appLayout";
 import { GeolocationProvider } from "context/geolocationContext";
-import { useEffect, useState } from "react";
+import useMounted from "hooks/useMounted/useMounted";
 
 const mainFont = Quicksand({
   weight: "variable",
@@ -31,18 +31,13 @@ const MyApp: AppType = (appProps) => {
 export default MyApp;
 
 function Container({ Component, pageProps }: AppProps) {
-  const [isMounted, setIsMounted] = useState(false);
-
-  // Workaround to prevent flashing when non-default theme is detected
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
+  const [isMounted] = useMounted();
 
   return (
     <div
       className={clsx([
-        mainFont.variable,
-        "font-sans",
+        `${mainFont.variable} font-sans`,
+        // Workaround to prevent flashing when non-default theme is detected
         !isMounted && "invisible",
       ])}
     >
