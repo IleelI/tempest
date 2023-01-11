@@ -33,6 +33,15 @@ export default function useDarkMode() {
     setIsDarkMode(isDarkModePreferred());
   }, []);
 
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      document.body.classList.add("transition-colors", "duration-500");
+    }, 250);
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, []);
+
   // Sync tailwindCSS dark className with html tag
   useEffect(() => {
     handleDarkModeClassSync(isDarkMode);

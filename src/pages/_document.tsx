@@ -7,7 +7,7 @@ export default function Document() {
       <Head>
         <Script src="/noFlash.js" strategy="beforeInteractive" />
       </Head>
-      <body className="bg-neutral-50 text-neutral-700 transition-colors duration-500 dark:bg-neutral-900 dark:text-neutral-300">
+      <body className="bg-neutral-50 text-neutral-700 dark:bg-neutral-900 dark:text-neutral-300">
         <Main />
         <NextScript />
       </body>
