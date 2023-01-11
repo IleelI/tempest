@@ -1,4 +1,4 @@
-import { getErrorMessage } from "../../utils/api";
+import { getErrorMessage } from "utils/api";
 import type { GetCityNameFromGeolocationResponse } from "./types";
 
 const BASE_URL = "http://api.openweathermap.org/geo/1.0";

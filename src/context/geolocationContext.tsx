@@ -1,8 +1,8 @@
+import type { UseGeolocationReturn } from "hooks/useGeolocation/useGeolocation";
+import useGeolocation from "hooks/useGeolocation/useGeolocation";
 import type { ReactNode } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
-import type { UseGeolocationReturn } from "../hooks/useGeolocation/useGeolocation";
-import useGeolocation from "../hooks/useGeolocation/useGeolocation";
 
 type GeolocationContextType = UseGeolocationReturn;
 const GeolocationContext = createContext<GeolocationContextType | undefined>(

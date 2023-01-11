@@ -1,13 +1,13 @@
-import { getWindow } from "../../utils/browser";
+import { getWindow } from "utils/browser";
 
 const STORAGE_KEY = "prefersDarkMode";
 
-export function checkStorageForDarkModePreference() {
+export function checkDarkModePreferenceInStorage() {
   const window = getWindow();
   if (!window) {
     return null;
   }
-  const storageContent = window.sessionStorage.getItem(STORAGE_KEY);
+  const storageContent = window.localStorage.getItem(STORAGE_KEY);
   if (storageContent) {
     const isDarkModePreferred = JSON.parse(storageContent);
     if (typeof isDarkModePreferred === "boolean") {
@@ -17,15 +17,14 @@ export function checkStorageForDarkModePreference() {
   return null;
 }
 
-export function updateStorageDarkModePreference(isDarkModePreferred: boolean) {
+export function updateDarkModePreferenceInStorage(
+  isDarkModePreferred: boolean
+) {
   const window = getWindow();
   if (!window) {
     return;
   }
-  window.sessionStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(isDarkModePreferred)
-  );
+  window.localStorage.setItem(STORAGE_KEY, JSON.stringify(isDarkModePreferred));
 }
 
 /**
@@ -37,7 +36,7 @@ export function isDarkModePreferred() {
   if (!window) {
     return true;
   }
-  const storagePreferrence = checkStorageForDarkModePreference();
+  const storagePreferrence = checkDarkModePreferenceInStorage();
   if (storagePreferrence !== null) {
     return storagePreferrence;
   }
@@ -50,5 +49,16 @@ export function isDarkModePreferred() {
     return true;
   } else {
     return false;
+  }
+}
+
+export function handleDarkModeClassSync(isDarkMode: boolean) {
+  const html = document.getElementsByTagName("html").item(0);
+  if (!html) return;
+
+  if (isDarkMode) {
+    html.classList.add("dark");
+  } else {
+    html.classList.remove("dark");
   }
 }
