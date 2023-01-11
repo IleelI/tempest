@@ -38,9 +38,14 @@ function Container({ Component, pageProps }: AppProps) {
     setIsMounted(true);
   }, []);
 
-  if (!isMounted) return null;
   return (
-    <div className={clsx([mainFont.variable, "font-sans"])}>
+    <div
+      className={clsx([
+        mainFont.variable,
+        "font-sans",
+        !isMounted && "invisible",
+      ])}
+    >
       <AppLayout>
         <Component {...pageProps} />
       </AppLayout>
