@@ -1,56 +1,46 @@
 import { useCallback, useEffect, useState } from "react";
-import { getWindow } from "../../utils/browser";
+import {
+  updateStorageDarkModePreference,
+  isDarkModePreferred,
+  checkStorageForDarkModePreference,
+} from "./helpers";
 
-/**
- *
- * @returns true if dark mode is preferred, false if color scheme preference is not supported or light mode is preferred
- */
-function checkForDarkModePreference() {
-  const window = getWindow();
-  if (
-    !window ||
-    window.matchMedia("(prefers-color-scheme)").media === "not all"
-  ) {
-    return false;
-  }
-  if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-// TODO save preferred color scheme to local storage when
-// user manually changes it.
 export default function useDarkMode() {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const handleDarkModeToggle = useCallback(() => {
-    setIsDarkMode((prev) => !prev);
+    setIsDarkMode((prev) => {
+      updateStorageDarkModePreference(!prev);
+      return !prev;
+    });
   }, []);
 
   const handleDarkModeOn = useCallback(() => {
+    updateStorageDarkModePreference(true);
     setIsDarkMode(true);
   }, []);
 
   const handleDarkModeOff = useCallback(() => {
+    updateStorageDarkModePreference(false);
     setIsDarkMode(false);
   }, []);
 
   // Fix for Next.js React Hydration Error,
-  // That was caused by using checkForDarkModePreference
+  // That was caused by using isDarkModePreferred
   // as initializer function of useState
   useEffect(() => {
-    setIsDarkMode(checkForDarkModePreference());
+    setIsDarkMode(isDarkModePreferred());
   }, []);
 
-  // Syncing system/broweser prefered color scheme with application theme
   useEffect(() => {
     const handleColorSchemeChange = ({ matches }: MediaQueryListEvent) => {
+      const hasPreference = checkStorageForDarkModePreference();
+      if (hasPreference !== null) return;
+
       if (matches) {
-        handleDarkModeOn();
+        setIsDarkMode(true);
       } else {
-        handleDarkModeOff();
+        setIsDarkMode(false);
       }
     };
 
