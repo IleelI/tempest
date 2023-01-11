@@ -44,13 +44,13 @@ export function updateDarkModeClassName(isDarkMode: boolean) {
  *
  * @returns true if dark mode is preferred, false if color scheme preference is not supported or light mode is preferred
  */
-export function isDarkModePreferred(prefersSystemSettings = false) {
+export function isDarkModePreferred() {
   const window = getWindow();
   if (!window) {
     return true;
   }
   const storagePreference = getDarkModePreferenceFromStorage();
-  if (!prefersSystemSettings && storagePreference !== null) {
+  if (storagePreference !== null) {
     return storagePreference;
   }
   if (window.matchMedia("(prefers-color-scheme)").media === "not all") {

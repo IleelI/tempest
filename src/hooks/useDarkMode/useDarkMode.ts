@@ -35,8 +35,8 @@ export default function useDarkMode(prefersSystemSettings = false) {
   // That was caused by using isDarkModePreferred
   // as initializer function of useState
   useEffect(() => {
-    setIsDarkMode(isDarkModePreferred(prefersSystemSettings));
-  }, [prefersSystemSettings]);
+    setIsDarkMode(isDarkModePreferred());
+  }, []);
 
   // Sync TailwindCSS dark className with Html tag
   useEffect(() => {
