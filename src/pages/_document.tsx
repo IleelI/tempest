@@ -5,7 +5,7 @@ export default function Document() {
   return (
     <Html>
       <Head />
-      <body>
+      <body className="bg-neutral-50 text-neutral-700 transition-colors duration-500 dark:bg-neutral-900 dark:text-neutral-300">
         <Script src="/noFlash.js" strategy="beforeInteractive" />
         <Main />
         <NextScript />

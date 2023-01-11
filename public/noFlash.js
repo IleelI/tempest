@@ -3,7 +3,6 @@
   const storageKey = "prefersDarkMode";
   const darkModeClass = "dark";
   const html = document.getElementsByTagName("html").item(0);
-  console.log("It works on dev?");
 
   function setClassOnDocumentBody(darkMode) {
     if (darkMode) {

@@ -13,9 +13,6 @@
 *::after {
   @apply leading-snug;
 }
-body {
-  @apply bg-neutral-50 text-neutral-700 transition-colors duration-500 dark:bg-neutral-900 dark:text-neutral-300;
-}
 
 @layer components {
   .switch {
