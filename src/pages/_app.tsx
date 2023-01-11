@@ -19,7 +19,7 @@ const queryClient = new QueryClient();
 const MyApp: AppType = (appProps) => {
   return (
     <QueryClientProvider client={queryClient}>
-      <DarkModeProvider>
+      <DarkModeProvider prefersSystemSettings>
         <GeolocationProvider>
           <Container {...appProps} />
         </GeolocationProvider>
