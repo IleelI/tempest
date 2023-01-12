@@ -3,3 +3,5 @@ export function getFirstSegment(path: string) {
   const segmentEnd = nextSegmentStart > 0 ? nextSegmentStart : undefined;
   return path.substring(0, segmentEnd);
 }
+
+export const regexLettersOnly = /^[a-zA-Z]+$/;

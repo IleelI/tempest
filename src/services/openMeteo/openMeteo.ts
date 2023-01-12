@@ -31,7 +31,7 @@ export async function getDailyWeather(
 
     // Checking against non-network errors
     if (!response.ok) {
-      throw new Error(`Error! ${response.status}.`);
+      throw new Error(`[getDailyWeather] Error(${response.status})!`);
     }
     return response.json() as Promise<GetDailyWeatherResponse>;
   } catch (error) {
@@ -56,7 +56,7 @@ export async function getTodayWeather(
 
     // Checking against non-network errors
     if (!response.ok) {
-      throw new Error(`Error! ${response.status}.`);
+      throw new Error(`[getTodayWeather] Error(${response.status})!`);
     }
     return response.json() as Promise<GetTodayWeatherResponse>;
   } catch (error) {
