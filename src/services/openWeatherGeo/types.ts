@@ -1,4 +1,4 @@
-export type GetCityNameFromGeolocationResponse = {
+export type GeocodingResponse = {
   name: string;
   local_names: {
     [key: string]: string;
@@ -6,5 +6,5 @@ export type GetCityNameFromGeolocationResponse = {
   lat: number;
   lon: number;
   country: string;
-  state: string;
+  state?: string;
 };
