@@ -2,33 +2,27 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --thumb-size: 1rem;
-  --track-size: 4rem;
-  --track-padding: 0.25rem;
-}
-
 *,
 *::before,
 *::after {
   @apply leading-snug;
 }
 
+:root {
+  --thumb-size: 1rem;
+  --track-size: 4rem;
+  --track-padding: 0.25rem;
+}
 @layer components {
   .switch {
     width: var(--track-size);
     padding: var(--track-padding);
     grid: [track] 1fr / [track] 1fr;
-
-    @apply bg-neutral-400 dark:bg-neutral-600;
-    @apply grid cursor-pointer select-none appearance-none rounded-full border-none outline-offset-4;
   }
   .switch::before {
-    content: "";
     grid-area: track;
     width: var(--thumb-size);
     height: var(--thumb-size);
-    @apply rounded-full bg-neutral-50 transition-transform duration-300 ease-out dark:bg-neutral-900;
   }
   .switch:checked::before {
     transform: translateX(

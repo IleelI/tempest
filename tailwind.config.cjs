@@ -12,6 +12,8 @@ module.exports = {
       },
       boxShadow: {
         main: "0px 6px 24px -2px rgba(24, 24, 27, 0.1)",
+        switchLight: " 0px 0px 0px 8px rgba(0, 0, 0, 0.25)",
+        switchDark: " 0px 0px 0px 8px rgba(255, 255, 255, 0.25)",
       },
     },
   },
