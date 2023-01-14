@@ -23,7 +23,7 @@ const NavigationLink = ({
           : "text-neutral-500",
       ])}
     >
-      <Link href={to} aria-label={label}>
+      <Link href={to} aria-label={label} className="[&>svg]:h-5 [&>svg]:w-5">
         {icon}
       </Link>
     </li>

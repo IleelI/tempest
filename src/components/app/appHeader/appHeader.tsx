@@ -1,6 +1,6 @@
 import { Moon, Sun } from "react-feather";
 import { useDarkModeContext } from "context/darkModeContext";
-import Switch from "../../switch/switch";
+import Switch from "../../common/switch/switch";
 import useMounted from "hooks/useMounted/useMounted";
 
 const AppHeader = () => {

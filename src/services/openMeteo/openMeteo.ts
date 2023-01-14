@@ -6,15 +6,15 @@ import { getErrorMessage } from "utils/api";
 const BASE_URL = "https://api.open-meteo.com/v1/forecast";
 
 // Fallback geolocation position for Gdańsk, Poland
-const fallbackLatitude = 54.3485;
-const fallbackLongitude = 18.5646;
+export const DEFAULT_LATITUDE = 54.3485;
+export const DEFAULT_LONGITUDE = 18.5646;
 
 // Fields retrieved from openMeteo API
 const DAILY_WEATHER_FIELDS =
   "weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,winddirection_10m_dominant";
 export async function getDailyWeather(
-  latitude = fallbackLatitude,
-  lonitude = fallbackLongitude,
+  latitude = DEFAULT_LATITUDE,
+  lonitude = DEFAULT_LONGITUDE,
   start?: Date,
   end?: Date
 ) {
@@ -31,7 +31,7 @@ export async function getDailyWeather(
 
     // Checking against non-network errors
     if (!response.ok) {
-      throw new Error(`Error! ${response.status}.`);
+      throw new Error(`[getDailyWeather] Error(${response.status})!`);
     }
     return response.json() as Promise<GetDailyWeatherResponse>;
   } catch (error) {
@@ -42,8 +42,8 @@ export async function getDailyWeather(
 const HOURLY_WEATHER_FIELDS =
   "temperature_2m,relativehumidity_2m,apparent_temperature,rain,showers,snowfall,weathercode,surface_pressure,cloudcover,visibility,windspeed_10m,winddirection_10m";
 export async function getTodayWeather(
-  latitude = fallbackLatitude,
-  longitude = fallbackLongitude
+  latitude = DEFAULT_LATITUDE,
+  longitude = DEFAULT_LONGITUDE
 ) {
   try {
     const startDate = formatISO(new Date(), { representation: "date" });
@@ -56,7 +56,7 @@ export async function getTodayWeather(
 
     // Checking against non-network errors
     if (!response.ok) {
-      throw new Error(`Error! ${response.status}.`);
+      throw new Error(`[getTodayWeather] Error(${response.status})!`);
     }
     return response.json() as Promise<GetTodayWeatherResponse>;
   } catch (error) {

@@ -7,7 +7,7 @@ type AppLayoutProps = {
 };
 export default function AppLayout({ children }: AppLayoutProps) {
   return (
-    <div className="m-auto flex min-h-screen flex-col p-4 sm:max-w-screen-sm sm:p-6 md:max-w-screen-md md:p-8">
+    <div className="m-auto flex min-h-screen flex-col gap-8 p-4 sm:max-w-lg sm:p-6 md:p-8">
       <AppHeader />
       {children}
       <AppNavigation />
