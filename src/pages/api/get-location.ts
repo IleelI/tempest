@@ -1,5 +1,5 @@
 import type { GeocodingResponse } from "services/openWeatherGeo/types";
-import { getLocationFromCity } from "services/openWeatherGeo/openWeatherGeo";
+import { ApiGetGeolocationFromCity } from "services/openWeatherGeo/openWeatherGeo";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "env/server.mjs";
 import { getErrorMessage } from "utils/api";
@@ -37,7 +37,10 @@ export default async function handler(
           });
         }
 
-        const data = await getLocationFromCity(city, env.OPEN_WEATHER_API_KEY);
+        const data = await ApiGetGeolocationFromCity(
+          city,
+          env.OPEN_WEATHER_API_KEY
+        );
 
         return res.status(200).json({ location: data[0] });
       } catch (error) {

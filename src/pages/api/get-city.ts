@@ -1,5 +1,5 @@
 import type { GeocodingResponse } from "services/openWeatherGeo/types";
-import { getCityFromGeolocation } from "services/openWeatherGeo/openWeatherGeo";
+import { ApiGetCityFromGeolocation } from "services/openWeatherGeo/openWeatherGeo";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "env/server.mjs";
 import { getErrorMessage } from "utils/api";
@@ -39,7 +39,7 @@ export default async function handler(
             .json({ error: "Latitude and longitude must be a number." });
         }
 
-        const data = await getCityFromGeolocation(
+        const data = await ApiGetCityFromGeolocation(
           parsedLatitude,
           parsedLongitude,
           env.OPEN_WEATHER_API_KEY

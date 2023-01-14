@@ -12,4 +12,4 @@ export function getFlagEmoji(countryCode: string) {
   return String.fromCodePoint(...codePoints);
 }
 
-export const regexLettersOnly = /^[a-zA-Z]+$/;
+export const regexLettersOnly = /^[a-zA-Z\s]*$/;
