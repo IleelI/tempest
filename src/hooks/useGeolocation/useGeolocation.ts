@@ -46,9 +46,15 @@ export default function useGeolocation() {
     navigator?.geolocation.clearWatch.bind(navigator.geolocation);
   }, []);
 
+  const isGeolocationDenied = useMemo(
+    () => (error ? error.code === error.PERMISSION_DENIED : false),
+    [error]
+  );
+
   return {
     position,
     error,
+    isGeolocationDenied,
     getPosition,
     watchPosition,
     clearPosition,

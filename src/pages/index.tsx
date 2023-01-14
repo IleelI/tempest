@@ -1,9 +1,10 @@
 import { type NextPage } from "next";
 import Head from "next/head";
 import { useDarkModeContext } from "context/darkModeContext";
+import CitySelect from "components/home/city-select/city-select";
 
 const Home: NextPage = () => {
-  const { handleDarkModeToggle } = useDarkModeContext();
+  const { isDarkMode } = useDarkModeContext();
 
   return (
     <>
@@ -12,15 +13,13 @@ const Home: NextPage = () => {
         <meta name="description" content="Tempest" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex h-full flex-[2] flex-col items-center justify-center">
-        <h1 className="mb-8 text-5xl font-semibold">Tempest 🌩️</h1>
-        <button
-          type="button"
-          className="rounded-lg bg-neutral-700 px-6 py-2 text-neutral-300 dark:bg-neutral-300 dark:text-neutral-700"
-          onClick={() => handleDarkModeToggle()}
-        >
-          Toggle theme
-        </button>
+      <main className="flex flex-col gap-6">
+        <CitySelect />
+        <section className="rounded-lg bg-neutral-50 p-4 shadow-main dark:bg-neutral-800">
+          <h1 className="font-medium text-neutral-800 dark:text-neutral-200">
+            Current theme: {isDarkMode ? "dark" : "light"}
+          </h1>
+        </section>
       </main>
     </>
   );

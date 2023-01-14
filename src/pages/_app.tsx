@@ -7,6 +7,7 @@ import clsx from "clsx";
 import AppLayout from "components/app/appLayout/appLayout";
 import { GeolocationProvider } from "context/geolocationContext";
 import useMounted from "hooks/useMounted/useMounted";
+import { LocationProvider } from "context/locationContext";
 
 const mainFont = Quicksand({
   weight: "variable",
@@ -21,7 +22,9 @@ const MyApp: AppType = (appProps) => {
     <QueryClientProvider client={queryClient}>
       <DarkModeProvider prefersSystemSettings>
         <GeolocationProvider>
-          <Container {...appProps} />
+          <LocationProvider>
+            <Container {...appProps} />
+          </LocationProvider>
         </GeolocationProvider>
       </DarkModeProvider>
     </QueryClientProvider>

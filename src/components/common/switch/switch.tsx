@@ -17,7 +17,7 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
     <span className="flex items-center justify-between gap-2">
       <label
         htmlFor={name}
-        className="cursor-pointer select-none text-sm font-medium [&>*]:h-4 [&>*]:w-4"
+        className="cursor-pointer select-none text-sm font-medium"
       >
         {label}
       </label>
