@@ -39,7 +39,6 @@ export async function ApiGetGeolocationFromCity(city: string, apiKey: string) {
 
 export async function getGeolocationFromCity(city: string) {
   try {
-    console.log(location);
     const url = `${location.origin}/api/get-location?city=${city}`;
 
     const response = await fetch(url);
@@ -57,7 +56,6 @@ export async function getCityFromGeolocation(
   longitude: number
 ) {
   try {
-    console.log(location);
     const url = `${location.origin}/api/get-city?latitude=${latitude}&longitude=${longitude}`;
     const response = await fetch(url);
     if (!response.ok) {
