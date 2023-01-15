@@ -7,12 +7,14 @@ const BASE_URL = "http://api.openweathermap.org/geo/1.0";
 export async function ApiGetCityFromGeolocation(
   latitude: number,
   longitude: number,
-  apiKey: string
+  apiKey: string,
+  getMulti = false
 ) {
   try {
-    const url = `${BASE_URL}/reverse?lat=${latitude}&lon=${longitude}&limit=1&appid=${apiKey}`;
-    const response = await fetch(url);
+    const limit = getMulti ? 5 : 1;
+    const url = `${BASE_URL}/reverse?lat=${latitude}&lon=${longitude}&limit=${limit}&appid=${apiKey}`;
 
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`[getCityFromGeolocation] Error(${response.status})!`);
     }
@@ -23,11 +25,16 @@ export async function ApiGetCityFromGeolocation(
 }
 
 // This functions are solely used for get-location Api route
-export async function ApiGetGeolocationFromCity(city: string, apiKey: string) {
+export async function ApiGetGeolocationFromCity(
+  city: string,
+  apiKey: string,
+  getMulti = false
+) {
   try {
-    const url = `${BASE_URL}/direct?q=${city}&limit=1&appid=${apiKey}`;
-    const response = await fetch(url);
+    const limit = getMulti ? 5 : 1;
+    const url = `${BASE_URL}/direct?q=${city}&limit=${limit}&appid=${apiKey}`;
 
+    const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`[getLocationFromCity] Error(${response.status})!`);
     }
@@ -46,6 +53,20 @@ export async function getGeolocationFromCity(city: string) {
       throw new Error(`[${url}]: something went wrong.`);
     }
     return (await response.json()) as { location: GeocodingResponse };
+  } catch (error) {
+    throw getErrorMessage(error);
+  }
+}
+
+export async function getGeolocationsFromCity(city: string) {
+  try {
+    const url = `${location.origin}/api/get-locations?city=${city}`;
+
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`[${url}]: something went wrong.`);
+    }
+    return (await response.json()) as { locations: GeocodingResponse[] };
   } catch (error) {
     throw getErrorMessage(error);
   }

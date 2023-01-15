@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@babel/core': ^7.20.12
   '@next/font': ^13.1.2
+  '@types/lodash': ^4.14.191
   '@types/node': ^18.11.18
   '@types/prettier': ^2.7.2
   '@types/react': ^18.0.26
@@ -14,6 +15,7 @@ specifiers:
   date-fns: ^2.29.3
   eslint: ^8.31.0
   eslint-config-next: 13.1.1
+  lodash: ^4.17.21
   next: 13.1.1
   postcss: ^8.4.21
   prettier: ^2.8.2
@@ -32,6 +34,7 @@ dependencies:
   '@next/font': 13.1.2
   clsx: 1.2.1
   date-fns: 2.29.3
+  lodash: 4.17.21
   next: 13.1.1_pjwopsidmaokadturxaafygjp4
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
@@ -41,6 +44,7 @@ dependencies:
   zod: 3.20.2
 
 devDependencies:
+  '@types/lodash': 4.14.191
   '@types/node': 18.11.18
   '@types/prettier': 2.7.2
   '@types/react': 18.0.26
@@ -643,6 +647,10 @@ packages:
 
   /@types/json5/0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/lodash/4.14.191:
+    resolution: {integrity: sha512-BdZ5BCCvho3EIXw6wUCXHe7rS53AIDPLE+JzwgT+OsJk53oBfbSmZZ7CX4VaRoN78N+TJpFi9QPlfIVNmJYWxQ==}
     dev: true
 
   /@types/node/18.11.18:
@@ -2272,6 +2280,10 @@ packages:
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
+
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}
