@@ -7,9 +7,9 @@ import type { ClassNamesConfig, FormatOptionLabelMeta } from "react-select";
 
 const selectClasses: ClassNamesConfig<LocationType, false> = {
   container: () => "bg-transparent flex-[2] outline-neutral-300",
-  control: () => "gap-4",
+  control: () => "gap-4 !grid grid-cols-[1fr_max-content] !min-h-0",
   valueContainer: () =>
-    "text-lg font-semibold text-neutral-800 dark:text-neutral-200",
+    "text-lg font-semibold text-neutral-800 dark:text-neutral-200 cursor-text",
   indicatorsContainer: () => "cursor-pointer",
   dropdownIndicator: ({ selectProps: { menuIsOpen } }) =>
     clsx(["!transition-transform !duration-300", menuIsOpen && "-rotate-180"]),
@@ -37,6 +37,7 @@ const selectClasses: ClassNamesConfig<LocationType, false> = {
         ? "text-neutral-800 dark:text-neutral-200"
         : "text-neutral-500 dark:text-neutral-400",
     ]),
+  noOptionsMessage: () => "break-all",
 };
 
 const formatOptionLabel = (
