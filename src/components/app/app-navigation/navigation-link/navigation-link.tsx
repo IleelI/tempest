@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import Link from "next/link";
 import React from "react";
-import type { NavigationItem } from "../appNavigation";
+import type { NavigationItem } from "../app-navigation";
 
 type NavigationLinkProps = {
   currentPath: string;

@@ -1,13 +1,13 @@
 import "../styles/globals.css";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { DarkModeProvider } from "../context/darkModeContext";
+import { DarkModeProvider } from "../context/dark-mode-context";
 import type { AppProps, AppType } from "next/app";
 import { Quicksand } from "@next/font/google";
 import clsx from "clsx";
-import AppLayout from "components/app/appLayout/appLayout";
-import { GeolocationProvider } from "context/geolocationContext";
+import AppLayout from "components/app/app-layout/app-layout";
+import { GeolocationProvider } from "context/geolocation-context";
 import useMounted from "hooks/useMounted/useMounted";
-import { LocationProvider } from "context/locationContext";
+import { LocationProvider } from "context/location-context";
 
 const mainFont = Quicksand({
   weight: "variable",

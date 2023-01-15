@@ -33,7 +33,7 @@ const Switch = forwardRef<HTMLInputElement, SwitchProps>(function Switch(
         className={clsx(
           "switch",
           [
-            "bg-neutral-400 dark:bg-neutral-600",
+            "bg-neutral-400 dark:bg-neutral-700",
             "grid cursor-pointer select-none appearance-none rounded-full border-none outline-offset-4",
             "disabled:cursor-not-allowed",
           ],

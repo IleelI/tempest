@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
-import AppHeader from "../appHeader/appHeader";
-import AppNavigation from "../appNavigation/appNavigation";
+import AppHeader from "../app-header/app-header";
+import AppNavigation from "../app-navigation/app-navigation";
 
 type AppLayoutProps = {
   children: ReactNode;

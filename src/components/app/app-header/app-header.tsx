@@ -1,5 +1,5 @@
 import { Moon, Sun } from "react-feather";
-import { useDarkModeContext } from "context/darkModeContext";
+import { useDarkModeContext } from "context/dark-mode-context";
 import Switch from "../../common/switch/switch";
 import useMounted from "hooks/useMounted/useMounted";
 
@@ -8,7 +8,7 @@ const AppHeader = () => {
   const [isMounted] = useMounted();
 
   return (
-    <header className="flex items-center justify-between gap-8">
+    <header className="flex flex-wrap items-center justify-between gap-8">
       <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">
         Tempest
       </h1>

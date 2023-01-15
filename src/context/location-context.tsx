@@ -4,29 +4,25 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
-import {
-  DEFAULT_LATITUDE,
-  DEFAULT_LONGITUDE,
-} from "services/openMeteo/openMeteo";
 import { getCityFromGeolocation } from "services/openWeatherGeo/openWeatherGeo";
-import { useGeolocationContext } from "./geolocationContext";
+import { useGeolocationContext } from "./geolocation-context";
 
-type Location = {
+export type LocationType = {
   name: string;
   country: string;
   latitude: number;
   longitude: number;
 };
-const DEFAULT_LOCATION: Location = {
+export const DEFAULT_LOCATION: LocationType = {
   name: "Gdańsk",
   country: "PL",
-  latitude: DEFAULT_LATITUDE,
-  longitude: DEFAULT_LONGITUDE,
+  latitude: 54.3485,
+  longitude: 18.5646,
 };
 
 type LocationContextType = {
-  currentLocation: Location;
-  setCurrentLocation: Dispatch<SetStateAction<Location>>;
+  currentLocation: LocationType;
+  setCurrentLocation: Dispatch<SetStateAction<LocationType>>;
 };
 const LocationContext = createContext<LocationContextType | undefined>(
   undefined

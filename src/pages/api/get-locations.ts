@@ -7,7 +7,7 @@ import { regexNoNumbers } from "utils/string";
 
 type GetLocationApiResponse = {
   error?: string;
-  location?: GeocodingResponse;
+  locations?: GeocodingResponse[];
 };
 export default async function handler(
   req: NextApiRequest,
@@ -37,10 +37,11 @@ export default async function handler(
 
         const data = await ApiGetGeolocationFromCity(
           city,
-          env.OPEN_WEATHER_API_KEY
+          env.OPEN_WEATHER_API_KEY,
+          true
         );
 
-        return res.status(200).json({ location: data[0] });
+        return res.status(200).json({ locations: data });
       } catch (error) {
         return res.status(500).json({ error: getErrorMessage(error) });
       }

@@ -6,10 +6,12 @@ type Props = {
   children: ReactNode;
   legend: ReactNode;
   placement?: AbsolutePlacement;
+  className?: string;
 };
 export default function Tooltip({
   children,
   legend,
+  className,
   placement = "bottom",
 }: Props) {
   return (
@@ -17,6 +19,7 @@ export default function Tooltip({
       {children}
       <div
         className={clsx([
+          className,
           "absolute z-10 w-max max-w-[25ch] px-4 py-2",
           "rounded-lg text-sm font-medium",
           "bg-neutral-50 text-neutral-800 dark:bg-neutral-700 dark:text-neutral-200",
