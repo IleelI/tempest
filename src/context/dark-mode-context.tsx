@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
-import type { UseDarkModeReturn } from "../hooks/useDarkMode/useDarkMode";
-import useDarkMode from "../hooks/useDarkMode/useDarkMode";
+import type { UseDarkModeReturn } from "hooks/useDarkMode/useDarkMode";
+import useDarkMode from "hooks/useDarkMode/useDarkMode";
 
 type DarkModeContextType = UseDarkModeReturn;
 const DarkModeContext = createContext<DarkModeContextType | undefined>(
@@ -11,9 +11,13 @@ const DarkModeContext = createContext<DarkModeContextType | undefined>(
 
 type DarkModeProviderType = {
   children: ReactNode;
+  prefersSystemSettings?: boolean;
 };
-function DarkModeProvider({ children }: DarkModeProviderType) {
-  const darkMode = useDarkMode();
+function DarkModeProvider({
+  children,
+  prefersSystemSettings,
+}: DarkModeProviderType) {
+  const darkMode = useDarkMode(prefersSystemSettings);
 
   return (
     <DarkModeContext.Provider value={darkMode}>

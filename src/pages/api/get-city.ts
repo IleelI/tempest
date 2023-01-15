@@ -1,16 +1,16 @@
-import type { GetCityNameFromGeolocationResponse } from "./../../services/openWeatherGeo/types";
+import type { GeocodingResponse } from "services/openWeatherGeo/types";
+import { ApiGetCityFromGeolocation } from "services/openWeatherGeo/openWeatherGeo";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { env } from "../../env/server.mjs";
-import { getCityNameFromGeolocation } from "../../services/openWeatherGeo/openWeatherGeo";
-import { getErrorMessage } from "../../utils/api";
+import { env } from "env/server.mjs";
+import { getErrorMessage } from "utils/api";
 
-type ApiResponse = {
+type GetCityApiResponse = {
   error?: string;
-  data?: GetCityNameFromGeolocationResponse;
+  city?: GeocodingResponse;
 };
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<ApiResponse>
+  res: NextApiResponse<GetCityApiResponse>
 ) {
   const { query, method } = req;
 
@@ -39,13 +39,13 @@ export default async function handler(
             .json({ error: "Latitude and longitude must be a number." });
         }
 
-        const data = await getCityNameFromGeolocation(
+        const data = await ApiGetCityFromGeolocation(
           parsedLatitude,
           parsedLongitude,
           env.OPEN_WEATHER_API_KEY
         );
 
-        return res.status(200).json({ data });
+        return res.status(200).json({ city: data[0] });
       } catch (error) {
         return res.status(500).json({ error: getErrorMessage(error) });
       }

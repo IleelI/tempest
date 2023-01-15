@@ -1,3 +1,36 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*,
+*::before,
+*::after {
+  @apply leading-snug;
+}
+
+:root {
+  --thumb-size: 1rem;
+  --track-size: 4rem;
+  --track-padding: 0.25rem;
+}
+@layer components {
+  .switch {
+    width: var(--track-size);
+    padding: var(--track-padding);
+    grid: [track] 1fr / [track] 1fr;
+  }
+  .switch::before {
+    grid-area: track;
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+  }
+  .switch:checked::before {
+    transform: translateX(
+      calc(var(--track-size) - var(--track-padding) * 2 - var(--thumb-size))
+    );
+  }
+}
+
+svg {
+  @apply h-4 w-4;
+}
