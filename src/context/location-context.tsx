@@ -14,7 +14,7 @@ export type LocationType = {
   longitude: number;
 };
 export const DEFAULT_LOCATION: LocationType = {
-  name: "Gdańsk",
+  name: "Gdansk",
   country: "PL",
   latitude: 54.3485,
   longitude: 18.5646,
