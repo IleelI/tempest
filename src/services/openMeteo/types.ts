@@ -39,6 +39,21 @@ export type BaseWeatherResponse = {
   elevation: number;
 };
 
+export type HourlyData = {
+  time: string;
+  temperature_2m: number;
+  relativehumidity_2m: number;
+  apparent_temperature: number;
+  rain: number;
+  showers: number;
+  snowfall: number;
+  weathercode: number;
+  surface_pressure: number;
+  cloudcover: number;
+  visibility: number;
+  windspeed_10m: number;
+  winddirection_10m: number;
+};
 export type GetTodayWeatherResponse = BaseWeatherResponse & {
   hourly_units: {
     time: string;
