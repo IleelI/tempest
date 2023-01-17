@@ -8,6 +8,7 @@ import AppLayout from "components/app/app-layout/app-layout";
 import { GeolocationProvider } from "context/geolocation-context";
 import useMounted from "hooks/useMounted/useMounted";
 import { LocationProvider } from "context/location-context";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 const mainFont = Quicksand({
   weight: "variable",
@@ -27,6 +28,7 @@ const MyApp: AppType = (appProps) => {
           </LocationProvider>
         </GeolocationProvider>
       </DarkModeProvider>
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 };
