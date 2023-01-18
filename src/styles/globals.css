@@ -10,12 +10,14 @@
 
 :root {
   --thumb-size: 1rem;
-  --track-size: 4rem;
+  --track-width: 4rem;
+  --track-height: 1.5rem;
   --track-padding: 0.25rem;
 }
 @layer components {
   .switch {
-    width: var(--track-size);
+    width: var(--track-width);
+    height: var(--track-height);
     padding: var(--track-padding);
     grid: [track] 1fr / [track] 1fr;
   }
@@ -26,7 +28,7 @@
   }
   .switch:checked::before {
     transform: translateX(
-      calc(var(--track-size) - var(--track-padding) * 2 - var(--thumb-size))
+      calc(var(--track-width) - var(--track-padding) * 2 - var(--thumb-size))
     );
   }
 }
