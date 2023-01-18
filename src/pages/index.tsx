@@ -7,6 +7,7 @@ import { useQuery } from "react-query";
 import { getWeatherByHour } from "services/openMeteo/openMeteo";
 import TodaysWeather from "components/home/todays-weather/todays-weather";
 import type { GetTodayWeatherResponse } from "services/openMeteo/types";
+import HourlyWeather from "components/home/hourly-weather/hourly-weather";
 
 type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;
 const Home: NextPage<HomeProps> = ({ initTodayWeatherData }) => {
@@ -33,6 +34,7 @@ const Home: NextPage<HomeProps> = ({ initTodayWeatherData }) => {
       <main className="flex flex-col gap-6">
         <CitySelection />
         <TodaysWeather weatherData={data} />
+        <HourlyWeather weatherData={data} />
       </main>
     </>
   );
