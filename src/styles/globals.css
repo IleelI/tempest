@@ -31,6 +31,18 @@
       calc(var(--track-width) - var(--track-padding) * 2 - var(--thumb-size))
     );
   }
+  .carousel {
+    grid-auto-columns: minmax(80px, 1fr);
+  }
+  .carousel::-webkit-scrollbar {
+    @apply h-1 w-1;
+  }
+  .carousel::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-neutral-700 dark:bg-neutral-300;
+  }
+  .carousel::-webkit-scrollbar-track {
+    @apply bg-transparent;
+  }
 }
 
 svg {
