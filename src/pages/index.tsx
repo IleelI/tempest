@@ -1,13 +1,14 @@
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { type NextPage } from "next";
 import Head from "next/head";
-import CitySelection from "components/home/city-selection/city-selection";
+import CitySelection from "components/home/components/city-selection/city-selection";
 import { useLocationContext } from "context/location-context";
 import { useQuery } from "react-query";
 import { getWeatherByHour } from "services/openMeteo/openMeteo";
-import TodaysWeather from "components/home/todays-weather/todays-weather";
 import type { GetTodayWeatherResponse } from "services/openMeteo/types";
-import HourlyWeather from "components/home/hourly-weather/hourly-weather";
+import HourlyWeather from "components/home/components/hourly-weather/hourly-weather";
+import TodaysWeather from "components/home/components/todays-weather/todays-weather";
+import MiniInfoGrid from "components/home/components/mini-info-grid/mini-info-grid";
 
 type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;
 const Home: NextPage<HomeProps> = ({ initTodayWeatherData }) => {
@@ -22,6 +23,7 @@ const Home: NextPage<HomeProps> = ({ initTodayWeatherData }) => {
       getWeatherByHour(currentLocation.latitude, currentLocation.longitude),
     initialData: initTodayWeatherData,
     refetchOnWindowFocus: false,
+    keepPreviousData: true,
   });
 
   return (
@@ -35,6 +37,7 @@ const Home: NextPage<HomeProps> = ({ initTodayWeatherData }) => {
         <CitySelection />
         <TodaysWeather weatherData={data} />
         <HourlyWeather weatherData={data} />
+        <MiniInfoGrid weatherData={data} />
       </main>
     </>
   );
