@@ -1,15 +1,13 @@
 import clsx from "clsx";
+import { useHourlyWeatherContext } from "components/home/context/hourly-weather-context";
 import { format, parseISO } from "date-fns";
 import React from "react";
-import type { GetTodayWeatherResponse } from "services/openMeteo/types";
 import { getWeatherIcon } from "services/openMeteo/utils";
 import useHourlyWeather from "../../hooks/useHourlyWeather";
 
-type HourlyWeatherProps = {
-  weatherData?: GetTodayWeatherResponse;
-};
-const HourlyWeather = ({ weatherData }: HourlyWeatherProps) => {
-  const { hourlyData } = useHourlyWeather(weatherData);
+const HourlyWeather = () => {
+  const { hourlyWeatherData } = useHourlyWeatherContext();
+  const { hourlyData } = useHourlyWeather(hourlyWeatherData);
   return (
     <div
       className={clsx([

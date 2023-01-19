@@ -1,15 +1,13 @@
+import { useHourlyWeatherContext } from "components/home/context/hourly-weather-context";
 import useCurrentWeather from "components/home/hooks/useCurrentWeather";
 import React from "react";
-import type { GetTodayWeatherResponse } from "services/openMeteo/types";
 import { formatWeatherCode, getWeatherIcon } from "services/openMeteo/utils";
 import { renderTimeOfTheDay } from "utils/time";
 
-type Props = {
-  weatherData?: GetTodayWeatherResponse;
-};
-export default function TodaysWeather({ weatherData }: Props) {
+export default function TodaysWeather() {
+  const { hourlyWeatherData } = useHourlyWeatherContext();
   const { currentHour, currentWeather, maxTemperature } =
-    useCurrentWeather(weatherData);
+    useCurrentWeather(hourlyWeatherData);
 
   if (!currentWeather || !maxTemperature) return null;
   const {
