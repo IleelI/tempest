@@ -5,7 +5,14 @@ import type {
   HourlyData,
 } from "services/openMeteo/types";
 
-export default function useTodaysWeather(
+export type CurrentWeatherWithUnits = {
+  [Property in keyof HourlyData]: {
+    unit: string;
+    value: number | string;
+  };
+};
+
+export default function useCurrentWeather(
   weatherData?: GetTodayWeatherResponse
 ) {
   const currentHour = useMemo(() => getHours(new Date()), []);
@@ -24,9 +31,28 @@ export default function useTodaysWeather(
     return [Object.fromEntries(weather) as HourlyData, maxTemperature];
   }, [weatherData?.hourly, currentHour]);
 
+  const currentWeatheWithUnits = useMemo(() => {
+    if (!currentWeather) return null;
+    const keys = Object.keys(currentWeather) as Array<
+      keyof typeof currentWeather
+    >;
+    const infoWithUnits = {} as CurrentWeatherWithUnits;
+    keys.forEach((key) => {
+      const info = {
+        [key]: {
+          value: currentWeather[key],
+          unit: weatherData?.hourly_units[key],
+        },
+      };
+      Object.assign(infoWithUnits, { ...info });
+    });
+    return infoWithUnits;
+  }, [currentWeather, weatherData?.hourly_units]);
+
   return {
     currentHour,
     currentWeather,
+    currentWeatheWithUnits,
     maxTemperature,
   };
 }

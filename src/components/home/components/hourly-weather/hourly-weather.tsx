@@ -3,7 +3,7 @@ import { format, parseISO } from "date-fns";
 import React from "react";
 import type { GetTodayWeatherResponse } from "services/openMeteo/types";
 import { getWeatherIcon } from "services/openMeteo/utils";
-import useHourlyWeather from "./useHourlyWeather";
+import useHourlyWeather from "../../hooks/useHourlyWeather";
 
 type HourlyWeatherProps = {
   weatherData?: GetTodayWeatherResponse;
@@ -15,7 +15,7 @@ const HourlyWeather = ({ weatherData }: HourlyWeatherProps) => {
       className={clsx([
         "carousel",
         "grid max-w-full grid-flow-col items-center gap-4 p-4 pt-5",
-        "rounded-lg bg-neutral-50 shadow-main dark:bg-neutral-800",
+        "rounded-lg border border-neutral-200 bg-neutral-50 shadow-main dark:border-transparent dark:bg-neutral-800",
         "snap-x snap-mandatory overflow-x-auto overflow-y-hidden scroll-smooth",
       ])}
     >
