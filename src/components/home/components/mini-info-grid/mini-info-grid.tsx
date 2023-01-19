@@ -1,10 +1,10 @@
 import type { InfoCardData } from "components/common/info-card/info-card";
 import InfoCard from "components/common/info-card/info-card";
+import { useHourlyWeatherContext } from "components/home/context/hourly-weather-context";
 import type { CurrentWeatherWithUnits } from "components/home/hooks/useCurrentWeather";
 import useCurrentWeather from "components/home/hooks/useCurrentWeather";
 import React, { useMemo } from "react";
 import { Droplet, Info, ArrowDown, Umbrella, CloudSnow } from "react-feather";
-import type { GetTodayWeatherResponse } from "services/openMeteo/types";
 
 function getMiniInfo(currentWeatheWithUnits: CurrentWeatherWithUnits | null) {
   if (!currentWeatheWithUnits) return [];
@@ -70,11 +70,9 @@ function getMiniInfo(currentWeatheWithUnits: CurrentWeatherWithUnits | null) {
   return miniInfo;
 }
 
-type Props = {
-  weatherData?: GetTodayWeatherResponse;
-};
-const MiniInfoGrid = ({ weatherData }: Props) => {
-  const { currentWeatheWithUnits } = useCurrentWeather(weatherData);
+const MiniInfoGrid = () => {
+  const { hourlyWeatherData } = useHourlyWeatherContext();
+  const { currentWeatheWithUnits } = useCurrentWeather(hourlyWeatherData);
   const miniInfo = useMemo(
     () => getMiniInfo(currentWeatheWithUnits),
     [currentWeatheWithUnits]
