@@ -31,7 +31,7 @@ export default function useCurrentWeather(
     return [Object.fromEntries(weather) as HourlyData, maxTemperature];
   }, [weatherData?.hourly, currentHour]);
 
-  const currentWeatheWithUnits = useMemo(() => {
+  const currentWeatherWithUnits = useMemo(() => {
     if (!currentWeather) return null;
     const keys = Object.keys(currentWeather) as Array<
       keyof typeof currentWeather
@@ -52,7 +52,7 @@ export default function useCurrentWeather(
   return {
     currentHour,
     currentWeather,
-    currentWeatheWithUnits,
+    currentWeatherWithUnits,
     maxTemperature,
   };
 }

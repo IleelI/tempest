@@ -1,6 +1,6 @@
 import type { GetDailyWeatherResponse, GetTodayWeatherResponse } from "./types";
 import { add, formatISO } from "date-fns";
-import { getErrorMessage, sleep } from "utils/api";
+import { getErrorMessage } from "utils/api";
 
 // Base url for openMeteo API endpoint
 const BASE_URL = "https://api.open-meteo.com/v1/forecast";
@@ -12,6 +12,7 @@ export const DEFAULT_LONGITUDE = 18.5646;
 // Fields retrieved from openMeteo API
 const WEATHER_BY_DAY_FIELDS =
   "weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,rain_sum,showers_sum,snowfall_sum,windspeed_10m_max,winddirection_10m_dominant";
+// By default if ending date not provided get 2 weeks of weather data
 export async function getWeatherByDay(
   latitude = DEFAULT_LATITUDE,
   lonitude = DEFAULT_LONGITUDE,
@@ -22,7 +23,7 @@ export async function getWeatherByDay(
     const startDate = formatISO(startingDate ?? new Date(), {
       representation: "date",
     });
-    const endDate = formatISO(endingDate ?? new Date(), {
+    const endDate = formatISO(endingDate ?? add(new Date(), { weeks: 2 }), {
       representation: "date",
     });
 

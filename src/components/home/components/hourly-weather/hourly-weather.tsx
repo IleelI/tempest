@@ -9,7 +9,7 @@ const HourlyWeather = () => {
   const { hourlyWeatherData } = useHourlyWeatherContext();
   const { hourlyData } = useHourlyWeather(hourlyWeatherData);
   return (
-    <div
+    <article
       className={clsx([
         "carousel",
         "grid max-w-full grid-flow-col items-center gap-4 p-4 pt-5",
@@ -35,7 +35,7 @@ const HourlyWeather = () => {
           </h1>
         </div>
       ))}
-    </div>
+    </article>
   );
 };
 
