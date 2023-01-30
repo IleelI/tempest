@@ -19,7 +19,7 @@ function Forecast({ forecast, todaysDate }: ForecastProps) {
     <li
       key={date}
       className={clsx([
-        "relative grid w-full snap-center grid-cols-4 items-center justify-items-center gap-2 gap-y-4",
+        "relative grid w-full snap-center grid-cols-4 items-center justify-items-center gap-2 gap-y-4 text-sm sm:text-base",
         isTodaysDate
           ? "font-medium text-neutral-900 dark:text-neutral-100"
           : "font-normal text-neutral-700 dark:text-neutral-300",

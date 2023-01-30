@@ -14,7 +14,9 @@ function ForecastList({ isExpanded, forecastData }: ForecastListProps) {
     <ul
       className={clsx([
         "flex w-full snap-y snap-proximity flex-col gap-4",
-        isExpanded ? "max-h-96 overflow-auto" : "overflow-hidden",
+        isExpanded
+          ? "max-h-96 overflow-y-auto overflow-x-hidden"
+          : "overflow-hidden",
       ])}
     >
       {forecastData.map((forecast) => (
