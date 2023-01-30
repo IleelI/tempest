@@ -1,13 +1,12 @@
 import clsx from "clsx";
-import { useHourlyWeatherContext } from "components/home/context/hourly-weather-context";
 import { format, parseISO } from "date-fns";
 import React from "react";
 import { getWeatherIcon } from "services/openMeteo/utils";
-import useHourlyWeather from "../../hooks/useHourlyWeather";
+import useHourlyForecast from "../../hooks/useHourlyForecast";
 
-const HourlyWeather = () => {
-  const { hourlyWeatherData } = useHourlyWeatherContext();
-  const { hourlyData } = useHourlyWeather(hourlyWeatherData);
+const HourlyForecast = () => {
+  const { hourlyData } = useHourlyForecast();
+
   return (
     <article
       className={clsx([
@@ -39,4 +38,4 @@ const HourlyWeather = () => {
   );
 };
 
-export default HourlyWeather;
+export default HourlyForecast;

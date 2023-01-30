@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import { getFlagEmoji } from "utils/string";
 import clsx from "clsx";
-import useCitySelect from "./useCitySelect";
+import useCitySelect from "./hooks/useCitySelect";
 import type { LocationType } from "context/location-context";
 import type { ClassNamesConfig, FormatOptionLabelMeta } from "react-select";
 

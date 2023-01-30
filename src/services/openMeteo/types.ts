@@ -67,7 +67,7 @@ export const CLOUD_CODES = [
   WeatherCode.DepositingRimeFog,
 ];
 
-export type BaseWeatherResponse = {
+export type BaseForecastResponse = {
   latitude: number;
   longitude: number;
   generationtime_ms: number;
@@ -92,7 +92,7 @@ export type HourlyData = {
   windspeed_10m: number;
   winddirection_10m: number;
 };
-export type GetTodayWeatherResponse = BaseWeatherResponse & {
+export type GetTodayForecastResponse = BaseForecastResponse & {
   hourly_units: {
     time: string;
     temperature_2m: string;
@@ -125,7 +125,7 @@ export type GetTodayWeatherResponse = BaseWeatherResponse & {
   };
 };
 
-export type GetDailyWeatherResponse = BaseWeatherResponse & {
+export type GetDailyForecastResponse = BaseForecastResponse & {
   daily_units: {
     time: string;
     weathercode: string;

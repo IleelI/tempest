@@ -1,12 +1,26 @@
 import type { InfoCardData } from "components/common/info-card/info-card";
-import { useHourlyWeatherContext } from "components/home/context/hourly-weather-context";
-import type { CurrentWeatherWithUnits } from "components/home/hooks/useCurrentWeather";
-import useCurrentWeather from "components/home/hooks/useCurrentWeather";
+import type { CurrentForecastWithUnits } from "components/home/hooks/useCurrentForecast";
+import useCurrentForecast from "components/home/hooks/useCurrentForecast";
 import { useMemo } from "react";
 import { Umbrella, CloudSnow, Droplet, Info, ArrowDown } from "react-feather";
 
-function getMiniInfo(currentWeatheWithUnits: CurrentWeatherWithUnits | null) {
-  if (!currentWeatheWithUnits) return [];
+export default function useMiniInfoGrid() {
+  const { currentForecastWithUnits } = useCurrentForecast();
+
+  const miniInfo = useMemo(
+    () => getMiniInfo(currentForecastWithUnits),
+    [currentForecastWithUnits]
+  );
+
+  return {
+    miniInfo,
+  };
+}
+
+function getMiniInfo(
+  currentForecastWithUnits: CurrentForecastWithUnits | null
+) {
+  if (!currentForecastWithUnits) return [];
 
   const {
     rain,
@@ -16,7 +30,7 @@ function getMiniInfo(currentWeatheWithUnits: CurrentWeatherWithUnits | null) {
     surface_pressure: pressure,
     winddirection_10m: windDirection,
     windspeed_10m: windSpeed,
-  } = currentWeatheWithUnits;
+  } = currentForecastWithUnits;
 
   const rainPrecipitationSum =
     (rain.value as number) + (showers.value as number);
@@ -67,18 +81,4 @@ function getMiniInfo(currentWeatheWithUnits: CurrentWeatherWithUnits | null) {
   ];
 
   return miniInfo;
-}
-
-export default function useMiniInfoGrid() {
-  const { hourlyWeatherData } = useHourlyWeatherContext();
-  const { currentWeatherWithUnits: currentWeatheWithUnits } =
-    useCurrentWeather(hourlyWeatherData);
-  const miniInfo = useMemo(
-    () => getMiniInfo(currentWeatheWithUnits),
-    [currentWeatheWithUnits]
-  );
-
-  return {
-    miniInfo,
-  };
 }
