@@ -1,13 +1,10 @@
-import { useHourlyForecastContext } from "components/home/context/hourly-forecast-context";
 import useCurrentForecast from "components/home/hooks/useCurrentForecast";
 import React from "react";
 import { formatWeatherCode, getWeatherIcon } from "services/openMeteo/utils";
 import { renderTimeOfTheDay } from "utils/time";
 
 export default function CurrentForecast() {
-  const { hourlyForecastData } = useHourlyForecastContext();
-  const { currentHour, currentForecast, maxTemperature } =
-    useCurrentForecast(hourlyForecastData);
+  const { currentHour, currentForecast, maxTemperature } = useCurrentForecast();
 
   if (!currentForecast || !maxTemperature) return null;
   const {
