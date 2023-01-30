@@ -4,6 +4,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useContext } from "react";
 import { createContext } from "react";
+import {
+  DEFAULT_LATITUDE,
+  DEFAULT_LONGITUDE,
+} from "services/openMeteo/openMeteo";
 import { getCityFromGeolocation } from "services/openWeatherGeo/openWeatherGeo";
 import { useGeolocationContext } from "./geolocation-context";
 
@@ -16,8 +20,8 @@ export type LocationType = {
 export const DEFAULT_LOCATION: LocationType = {
   name: "Gdansk",
   country: "PL",
-  latitude: 54.3485,
-  longitude: 18.5646,
+  latitude: DEFAULT_LATITUDE,
+  longitude: DEFAULT_LONGITUDE,
 };
 
 type LocationContextType = {

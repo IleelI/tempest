@@ -38,7 +38,7 @@ export default function AppNavigation() {
   const currentPath = useMemo(() => getFirstSegment(pathname), [pathname]);
 
   return (
-    <nav className="fixed bottom-8 left-1/2 -translate-x-1/2 rounded-lg border border-neutral-300 bg-neutral-50 px-8 py-4 shadow-main dark:border-neutral-700 dark:bg-neutral-800 dark:shadow-none">
+    <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 rounded-lg border border-neutral-300 bg-neutral-50 px-8 py-4 shadow-main dark:border-neutral-700 dark:bg-neutral-800 dark:shadow-none">
       <ul className="flex items-center gap-8">
         {NAVIGATION_ITEMS.map((item) => (
           <NavigationLink

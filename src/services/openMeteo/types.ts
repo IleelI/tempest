@@ -29,7 +29,45 @@ export enum WeatherCode {
   ThunderstormHailHeavy = 99,
 }
 
-export type BaseWeatherResponse = {
+export const DRIZZLE_CODES = [
+  WeatherCode.DrizzleDense,
+  WeatherCode.DrizzleLight,
+  WeatherCode.DrizzleModerate,
+  WeatherCode.FreezingDrizzleDense,
+  WeatherCode.FreezingDrizzleLight,
+];
+export const RAIN_CODES = [
+  WeatherCode.RainSlight,
+  WeatherCode.RainModerate,
+  WeatherCode.RainHeavy,
+  WeatherCode.FreezingRainLight,
+  WeatherCode.FreezingRainHeavy,
+  WeatherCode.RainShowersSlight,
+  WeatherCode.RainShowersModerate,
+  WeatherCode.RainShowersViolent,
+];
+export const SNOW_CODES = [
+  WeatherCode.SnowFallSlight,
+  WeatherCode.SnowFallModerate,
+  WeatherCode.SnowFallHeavy,
+  WeatherCode.SnowGrains,
+  WeatherCode.SnowShowersSlight,
+  WeatherCode.SnowShowersHeavy,
+];
+export const LIGHTNING_CODES = [
+  WeatherCode.ThunderstormHailSlight,
+  WeatherCode.ThunderstormSlightOrModerate,
+  WeatherCode.ThunderstormHailHeavy,
+];
+export const SUN_CODES = [WeatherCode.ClearSky, WeatherCode.MainlyClear];
+export const CLOUD_CODES = [
+  WeatherCode.PartlyCloudy,
+  WeatherCode.Overcast,
+  WeatherCode.Fog,
+  WeatherCode.DepositingRimeFog,
+];
+
+export type BaseForecastResponse = {
   latitude: number;
   longitude: number;
   generationtime_ms: number;
@@ -39,7 +77,22 @@ export type BaseWeatherResponse = {
   elevation: number;
 };
 
-export type GetTodayWeatherResponse = BaseWeatherResponse & {
+export type HourlyData = {
+  time: string;
+  temperature_2m: number;
+  relativehumidity_2m: number;
+  apparent_temperature: number;
+  rain: number;
+  showers: number;
+  snowfall: number;
+  weathercode: number;
+  surface_pressure: number;
+  cloudcover: number;
+  visibility: number;
+  windspeed_10m: number;
+  winddirection_10m: number;
+};
+export type GetTodayForecastResponse = BaseForecastResponse & {
   hourly_units: {
     time: string;
     temperature_2m: string;
@@ -72,7 +125,7 @@ export type GetTodayWeatherResponse = BaseWeatherResponse & {
   };
 };
 
-export type GetDailyWeatherResponse = BaseWeatherResponse & {
+export type GetDailyForecastResponse = BaseForecastResponse & {
   daily_units: {
     time: string;
     weathercode: string;

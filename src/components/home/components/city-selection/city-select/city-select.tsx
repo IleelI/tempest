@@ -1,7 +1,7 @@
 import AsyncSelect from "react-select/async";
 import { getFlagEmoji } from "utils/string";
 import clsx from "clsx";
-import useCitySelect from "./useCitySelect";
+import useCitySelect from "./hooks/useCitySelect";
 import type { LocationType } from "context/location-context";
 import type { ClassNamesConfig, FormatOptionLabelMeta } from "react-select";
 
@@ -52,6 +52,9 @@ const formatOptionLabel = (
   }
 };
 
+const getOptionValue = ({ name, country }: LocationType) =>
+  `${name.toLowerCase()},${country.toLowerCase()}`;
+
 const CitySelect = () => {
   const { currentLocation, visibleOptions, loadOptions, handleOptionChange } =
     useCitySelect();
@@ -67,10 +70,8 @@ const CitySelect = () => {
       noOptionsMessage={({ inputValue }) => `No city found for ${inputValue}.`}
       value={currentLocation}
       onChange={handleOptionChange}
+      getOptionValue={getOptionValue}
       formatOptionLabel={formatOptionLabel}
-      getOptionValue={({ name, country }) =>
-        `${name.toLowerCase()},${country.toLowerCase()}`
-      }
     />
   );
 };

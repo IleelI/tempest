@@ -1,11 +1,26 @@
+import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { type NextPage } from "next";
 import Head from "next/head";
-import { useDarkModeContext } from "context/dark-mode-context";
-import CitySelection from "components/home/city-selection/city-selection";
+import CitySelection from "components/home/components/city-selection/city-selection";
+import {
+  getForecastByDay,
+  getForecastByHour,
+} from "services/openMeteo/openMeteo";
+import type {
+  GetDailyForecastResponse,
+  GetTodayForecastResponse,
+} from "services/openMeteo/types";
+import HourlyForecast from "components/home/components/hourly-forecast/hourly-forecast";
+import CurrentForecast from "components/home/components/current-forecast/current-forecast";
+import MiniInfoGrid from "components/home/components/mini-info-grid/mini-info-grid";
+import { HourlyForecastProvider } from "components/home/context/hourly-forecast-context";
+import WeeklyForecast from "components/home/components/weekly-forecast/weekly-forecast";
 
-const Home: NextPage = () => {
-  const { isDarkMode } = useDarkModeContext();
-
+type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;
+const Home: NextPage<HomeProps> = ({
+  initialHourlyData,
+  initialWeeklyData,
+}) => {
   return (
     <>
       <Head>
@@ -15,14 +30,42 @@ const Home: NextPage = () => {
       </Head>
       <main className="flex flex-col gap-6">
         <CitySelection />
-        <section className="rounded-lg border border-neutral-200 bg-neutral-50 p-4 shadow-main dark:border-none dark:bg-neutral-800">
-          <h1 className="font-medium text-neutral-800 dark:text-neutral-200">
-            Current theme: {isDarkMode ? "dark" : "light"}
-          </h1>
-        </section>
+        <HourlyForecastProvider initialData={initialHourlyData}>
+          <CurrentForecast />
+          <HourlyForecast />
+          <MiniInfoGrid />
+        </HourlyForecastProvider>
+        <WeeklyForecast initialData={initialWeeklyData} />
       </main>
     </>
   );
 };
 
 export default Home;
+
+type HomeStaticProps = {
+  initialHourlyData?: GetTodayForecastResponse;
+  initialWeeklyData?: GetDailyForecastResponse;
+};
+export const getStaticProps: GetStaticProps<HomeStaticProps> =
+  async function () {
+    try {
+      const initialHourlyData = await getForecastByHour();
+      const initialWeeklyData = await getForecastByDay();
+      return {
+        props: {
+          initialHourlyData,
+          initialWeeklyData,
+        },
+        revalidate: 60,
+      };
+    } catch (error) {
+      return {
+        props: {
+          initTodayWeatherData: undefined,
+          initialWeeklyData: undefined,
+        },
+        revalidate: 60,
+      };
+    }
+  };
