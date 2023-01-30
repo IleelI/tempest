@@ -1,21 +1,19 @@
-import { useHourlyWeatherContext } from "components/home/context/hourly-weather-context";
-import useCurrentWeather from "components/home/hooks/useCurrentWeather";
+import useCurrentForecast from "components/home/hooks/useCurrentForecast";
 import React from "react";
 import { formatWeatherCode, getWeatherIcon } from "services/openMeteo/utils";
 import { renderTimeOfTheDay } from "utils/time";
 
-export default function TodaysWeather() {
-  const { hourlyWeatherData } = useHourlyWeatherContext();
-  const { currentHour, currentWeather, maxTemperature } =
-    useCurrentWeather(hourlyWeatherData);
+export default function CurrentForecast() {
+  const { currentHour, currentForecast, maxTemperature } = useCurrentForecast();
 
-  if (!currentWeather || !maxTemperature) return null;
+  if (!currentForecast || !maxTemperature) return null;
   const {
     temperature_2m: temperature,
     apparent_temperature: relativeTemperature,
     weathercode,
-  } = currentWeather;
+  } = currentForecast;
 
+  // TODO Add units from backend reponse
   return (
     <article className="grid w-full grid-cols-2 overflow-hidden rounded-lg shadow-main">
       <section className="flex flex-col items-start gap-4 rounded-lg rounded-tr-none rounded-br-none border border-r-0 border-neutral-200 bg-neutral-50 p-4 text-start dark:border-neutral-800 dark:bg-neutral-800">

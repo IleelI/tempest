@@ -2,15 +2,25 @@ import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { type NextPage } from "next";
 import Head from "next/head";
 import CitySelection from "components/home/components/city-selection/city-selection";
-import { getWeatherByHour } from "services/openMeteo/openMeteo";
-import type { GetTodayWeatherResponse } from "services/openMeteo/types";
-import HourlyWeather from "components/home/components/hourly-weather/hourly-weather";
-import TodaysWeather from "components/home/components/todays-weather/todays-weather";
+import {
+  getForecastByDay,
+  getForecastByHour,
+} from "services/openMeteo/openMeteo";
+import type {
+  GetDailyForecastResponse,
+  GetTodayForecastResponse,
+} from "services/openMeteo/types";
+import HourlyForecast from "components/home/components/hourly-forecast/hourly-forecast";
+import CurrentForecast from "components/home/components/current-forecast/current-forecast";
 import MiniInfoGrid from "components/home/components/mini-info-grid/mini-info-grid";
-import { HourlyWeatherProvider } from "components/home/context/hourly-weather-context";
+import { HourlyForecastProvider } from "components/home/context/hourly-forecast-context";
+import WeeklyForecast from "components/home/components/weekly-forecast/weekly-forecast";
 
 type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;
-const Home: NextPage<HomeProps> = ({ initialHourlyData }) => {
+const Home: NextPage<HomeProps> = ({
+  initialHourlyData,
+  initialWeeklyData,
+}) => {
   return (
     <>
       <Head>
@@ -20,11 +30,12 @@ const Home: NextPage<HomeProps> = ({ initialHourlyData }) => {
       </Head>
       <main className="flex flex-col gap-6">
         <CitySelection />
-        <HourlyWeatherProvider initialData={initialHourlyData}>
-          <TodaysWeather />
-          <HourlyWeather />
+        <HourlyForecastProvider initialData={initialHourlyData}>
+          <CurrentForecast />
+          <HourlyForecast />
           <MiniInfoGrid />
-        </HourlyWeatherProvider>
+        </HourlyForecastProvider>
+        <WeeklyForecast initialData={initialWeeklyData} />
       </main>
     </>
   );
@@ -33,15 +44,18 @@ const Home: NextPage<HomeProps> = ({ initialHourlyData }) => {
 export default Home;
 
 type HomeStaticProps = {
-  initialHourlyData?: GetTodayWeatherResponse;
+  initialHourlyData?: GetTodayForecastResponse;
+  initialWeeklyData?: GetDailyForecastResponse;
 };
 export const getStaticProps: GetStaticProps<HomeStaticProps> =
   async function () {
     try {
-      const initialHourlyData = await getWeatherByHour();
+      const initialHourlyData = await getForecastByHour();
+      const initialWeeklyData = await getForecastByDay();
       return {
         props: {
           initialHourlyData,
+          initialWeeklyData,
         },
         revalidate: 60,
       };
@@ -49,6 +63,7 @@ export const getStaticProps: GetStaticProps<HomeStaticProps> =
       return {
         props: {
           initTodayWeatherData: undefined,
+          initialWeeklyData: undefined,
         },
         revalidate: 60,
       };
