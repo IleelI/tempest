@@ -17,6 +17,7 @@ specifiers:
   eslint-config-next: 13.1.1
   lodash: ^4.17.21
   next: 13.1.1
+  pocketbase: ^0.10.1
   postcss: ^8.4.21
   prettier: ^2.8.2
   prettier-plugin-tailwindcss: ^0.2.1
@@ -36,6 +37,7 @@ dependencies:
   date-fns: 2.29.3
   lodash: 4.17.21
   next: 13.1.1_pjwopsidmaokadturxaafygjp4
+  pocketbase: 0.10.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-feather: 2.0.10_react@18.2.0
@@ -2587,6 +2589,10 @@ packages:
     resolution: {integrity: sha512-udgsAY+fTnvv7kI7aaxbqwWNb0AHiB0qBO89PZKPkoTmGOgdbrHDKD+0B2X4uTfJ/FT1R09r9gTsjUjNJotuog==}
     engines: {node: '>=0.10.0'}
     dev: true
+
+  /pocketbase/0.10.1:
+    resolution: {integrity: sha512-FMBhF+9o2AmdKJYbfz2qunnk4Q5/efYMRcukdQF49UfhsIuaSYl39fSPN1l880bYI4XAvDDeySAjK1MlxrK37A==}
+    dev: false
 
   /postcss-import/14.1.0_postcss@8.4.21:
     resolution: {integrity: sha512-flwI+Vgm4SElObFVPpTIT7SU7R3qk2L7PyduMcokiaVKuWv9d/U+Gm/QAd8NDLuykTWTkcrjOeD2Pp1rMeBTGw==}
