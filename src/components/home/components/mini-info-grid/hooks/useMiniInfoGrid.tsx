@@ -1,4 +1,4 @@
-import type { InfoCardData } from "components/common/info-card/info-card";
+import type { InfoCardData } from "components/home/components/mini-info-grid/components/info-card/info-card";
 import type { CurrentForecastWithUnits } from "components/home/hooks/useCurrentForecast";
 import useCurrentForecast from "components/home/hooks/useCurrentForecast";
 import { useMemo } from "react";
