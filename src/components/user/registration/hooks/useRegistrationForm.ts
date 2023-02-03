@@ -51,7 +51,11 @@ export default function useRegistrationForm() {
     defaultValues,
     resolver: zodResolver(registrationSchema),
   });
-  const { isLoading, mutateAsync } = useMutation({
+  const {
+    error: registrationError,
+    isLoading,
+    mutateAsync,
+  } = useMutation({
     mutationKey: "register-user",
     mutationFn: registerNewUser,
   });
@@ -80,6 +84,7 @@ export default function useRegistrationForm() {
 
   return {
     errors,
+    registrationError,
     isLoading,
     isValid,
     register,
