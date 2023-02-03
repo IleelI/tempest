@@ -1,4 +1,4 @@
-import type { HTMLInputTypeAttribute } from "react";
+import type { HTMLInputTypeAttribute, ReactNode } from "react";
 import { forwardRef } from "react";
 import React from "react";
 import type { ChangeHandler, FieldError } from "react-hook-form";
@@ -12,12 +12,21 @@ type ReactHookFormProps = {
 };
 type InputFieldProps = ReactHookFormProps & {
   label: string;
+  isRequired?: boolean;
+  icon?: ReactNode;
   type?: HTMLInputTypeAttribute;
   placeholder?: string;
 };
 const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
   function InputField(
-    { label, type = "text", placeholder, ...inputProps },
+    {
+      icon,
+      label,
+      placeholder,
+      type = "text",
+      isRequired = false,
+      ...inputProps
+    },
     ref
   ) {
     const { name, error } = inputProps;
@@ -27,23 +36,47 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         <label
           htmlFor={name}
           className={clsx([
-            "text-lg font-medium text-neutral-800",
+            "flex items-center gap-1 font-medium text-neutral-800",
             "dark:text-neutral-100",
           ])}
         >
           {label}
+          {isRequired && <span>*</span>}
         </label>
-        <input
-          ref={ref}
-          id={name}
-          type={type}
-          placeholder={placeholder}
-          {...inputProps}
+        <div
           className={clsx([
-            "rounded-lg border border-neutral-300 bg-neutral-50 px-4 py-2 text-sm text-neutral-800",
+            "flex overflow-hidden rounded-lg border border-neutral-300 bg-neutral-50 text-neutral-800 transition-colors",
             "dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200",
+            "hover:border-neutral-500 hover:dark:border-neutral-500",
+            "focus-within:!border-blue-700 focus-within:dark:!border-blue-300",
+            error &&
+              "border-red-700 text-red-700 dark:border-red-300 dark:text-red-300",
           ])}
-        />
+        >
+          {icon && (
+            <span
+              className={clsx([
+                "flex items-center border-r border-neutral-300 bg-neutral-100 px-4 py-2",
+                "dark:border-neutral-700 dark:bg-neutral-700",
+              ])}
+            >
+              {icon}
+            </span>
+          )}
+          <input
+            ref={ref}
+            id={name}
+            type={type}
+            placeholder={placeholder}
+            {...inputProps}
+            className={clsx([
+              "flex-[2] items-center border-none bg-transparent p-2 text-sm tracking-wide text-neutral-800 outline-none transition-colors",
+              "dark:text-neutral-200",
+              error &&
+                "text-red-700 placeholder:text-red-700 placeholder:opacity-70 dark:text-red-300 dark:placeholder:text-red-300",
+            ])}
+          />
+        </div>
         {error && (
           <span
             className={clsx([

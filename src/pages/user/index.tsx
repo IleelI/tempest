@@ -5,46 +5,54 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import InputField from "components/common/input-field/input-field";
 import clsx from "clsx";
+import { Lock, Mail } from "react-feather";
 
-export const userSchema = z.object({
-  email: z
-    .string({
-      required_error: "Email is required",
-      invalid_type_error: "Email must be a string",
-    })
-    .email({ message: "Invalide email address" }),
-  password: z
-    .string({
-      required_error: "Password is required",
-      invalid_type_error: "Password must be a string",
-    })
-    .min(8, "Password must be at least 8 characters long"),
-  username: z
-    .string({
-      invalid_type_error: "Username must be a string",
-    })
-    .min(3)
-    .optional(),
-});
-type UserSchema = z.infer<typeof userSchema>;
+export const registerSchema = z
+  .object({
+    email: z
+      .string({
+        required_error: "Email is required",
+        invalid_type_error: "Email must be a string",
+      })
+      .email({ message: "Invalide email address" }),
+    password: z
+      .string({
+        required_error: "Password is required",
+        invalid_type_error: "Password must be a string",
+      })
+      .min(8, "Password must be at least 8 characters long"),
+    confirm: z
+      .string({
+        required_error: "Password is required",
+        invalid_type_error: "Password must be a string",
+      })
+      .min(8, "Password must be at least 8 characters long"),
+  })
+  .refine(({ password, confirm }) => password === confirm, {
+    message: "Passwords don't match",
+    path: ["confirm"],
+  });
+
+type RegisterSchema = z.infer<typeof registerSchema>;
 
 function Register() {
   const {
     formState: { errors, isValid },
     register,
     handleSubmit,
-  } = useForm<UserSchema>({
-    resolver: zodResolver(userSchema),
+  } = useForm<RegisterSchema>({
+    resolver: zodResolver(registerSchema),
     defaultValues: {
       email: "",
       password: "",
+      confirm: "",
     },
   });
 
-  const onSubmit: SubmitHandler<UserSchema> = (data) => {
+  const onSubmit: SubmitHandler<RegisterSchema> = (data) => {
     console.log(data.email, data.password);
   };
-  const onError: SubmitErrorHandler<UserSchema> = (error) => {
+  const onError: SubmitErrorHandler<RegisterSchema> = (error) => {
     console.error(error);
   };
 
@@ -53,12 +61,31 @@ function Register() {
       onSubmit={handleSubmit(onSubmit, onError)}
       className="flex flex-col gap-4"
     >
-      <InputField label="Email" error={errors.email} {...register("email")} />
       <InputField
+        isRequired
+        label="Email"
+        icon={<Mail />}
+        placeholder="dolor.amet@ipsum.sit"
+        error={errors.email}
+        {...register("email")}
+      />
+      <InputField
+        isRequired
         label="Password"
         type="password"
+        placeholder="Password"
+        icon={<Lock />}
         error={errors.password}
         {...register("password")}
+      />
+      <InputField
+        isRequired
+        label="Confirm Password"
+        type="password"
+        placeholder="Password"
+        icon={<Lock />}
+        error={errors.confirm}
+        {...register("confirm")}
       />
       <button
         type="submit"
