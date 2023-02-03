@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import RegisterForm from "components/user/register/register-form";
+import RegistrationForm from "components/user/registration/registration-form";
 
 const UserPage: NextPage = function () {
-  return <RegisterForm />;
+  return <RegistrationForm />;
 };
 
 export default UserPage;

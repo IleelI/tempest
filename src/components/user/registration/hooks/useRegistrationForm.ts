@@ -8,7 +8,7 @@ import { registerNewUser } from "services/authentication/authentication";
 import { getErrorMessage } from "utils/api";
 import { z } from "zod";
 
-export const registerSchema = z
+export const registrationSchema = z
   .object({
     email: z
       .string({
@@ -33,30 +33,30 @@ export const registerSchema = z
     message: "Passwords don't match",
     path: ["confirm"],
   });
-export type RegisterSchema = z.infer<typeof registerSchema>;
+export type RegistrationSchema = z.infer<typeof registrationSchema>;
 
-const defaultValues: RegisterSchema = {
+const defaultValues: RegistrationSchema = {
   email: "",
   password: "",
   confirm: "",
 };
-export default function useRegisterForm() {
+export default function useRegistrationForm() {
   const {
     formState: { errors, isValid },
     watch,
     register,
     trigger,
     handleSubmit,
-  } = useForm<RegisterSchema>({
+  } = useForm<RegistrationSchema>({
     defaultValues,
-    resolver: zodResolver(registerSchema),
+    resolver: zodResolver(registrationSchema),
   });
   const { isLoading, mutateAsync } = useMutation({
     mutationKey: "register-user",
     mutationFn: registerNewUser,
   });
 
-  const onSubmit: SubmitHandler<RegisterSchema> = useCallback(
+  const onSubmit: SubmitHandler<RegistrationSchema> = useCallback(
     async (formData) => {
       try {
         await mutateAsync(formData);

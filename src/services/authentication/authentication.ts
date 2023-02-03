@@ -1,13 +1,13 @@
+import type { RegistrationSchema } from "components/user/registration/hooks/useRegistrationForm";
 import type {
   RegisterFailedResponse,
   RegisterSuccessfullResponse,
 } from "pages/api/auth/register";
-import type { RegisterSchema } from "pages/user";
 import { getErrorMessage } from "utils/api";
 
 const REGISTER_ENDPOINT = "/api/auth/register";
 
-export async function registerNewUser({ email, password }: RegisterSchema) {
+export async function registerNewUser({ email, password }: RegistrationSchema) {
   try {
     const response = await fetch(REGISTER_ENDPOINT, {
       method: "POST",

@@ -1,11 +1,12 @@
 import Button from "components/common/button/button";
 import InputField from "components/common/input-field/input-field";
 import { Loader, Lock, Mail, Plus } from "react-feather";
-import useRegisterForm from "./hooks/useRegisterForm";
+import useRegistrationForm from "./hooks/useRegistrationForm";
 
-export default function RegisterForm() {
+export default function RegistrationForm() {
   const { errors, isLoading, isValid, register, handleSubmit, onSubmit } =
-    useRegisterForm();
+    useRegistrationForm();
+  const isDisabled = !isValid || isLoading;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
@@ -39,7 +40,7 @@ export default function RegisterForm() {
       </fieldset>
       <Button
         type="submit"
-        isDisabled={!isValid || isLoading}
+        isDisabled={isDisabled}
         label={isLoading ? "Loading" : "RegisterForm"}
         icon={isLoading ? <Loader className="animate-spin" /> : <Plus />}
       />
