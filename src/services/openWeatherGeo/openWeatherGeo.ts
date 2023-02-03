@@ -2,6 +2,7 @@ import { getErrorMessage } from "utils/api";
 import type { GeocodingResponse } from "./types";
 
 const BASE_URL = "http://api.openweathermap.org/geo/1.0";
+const API_ROUTE = "/api/data";
 
 // This functions are solely used for get-City api route
 export async function ApiGetCityFromGeolocation(
@@ -46,7 +47,7 @@ export async function ApiGetGeolocationFromCity(
 
 export async function getGeolocationFromCity(city: string) {
   try {
-    const url = `${location.origin}/api/get-location?city=${city}`;
+    const url = `${API_ROUTE}/get-location?city=${city}`;
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -60,7 +61,7 @@ export async function getGeolocationFromCity(city: string) {
 
 export async function getGeolocationsFromCity(city: string) {
   try {
-    const url = `${location.origin}/api/get-locations?city=${city}`;
+    const url = `${API_ROUTE}/get-locations?city=${city}`;
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -77,7 +78,7 @@ export async function getCityFromGeolocation(
   longitude: number
 ) {
   try {
-    const url = `${location.origin}/api/get-city?latitude=${latitude}&longitude=${longitude}`;
+    const url = `${API_ROUTE}/get-city?latitude=${latitude}&longitude=${longitude}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`[${url}]: something went wrong.`);

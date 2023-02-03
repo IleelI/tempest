@@ -1,6 +1,6 @@
 import Button from "components/common/button/button";
 import InputField from "components/common/input-field/input-field";
-import { Loader, Lock, Mail, Plus } from "react-feather";
+import { Loader, Lock, Mail } from "react-feather";
 import useRegistrationForm from "./hooks/useRegistrationForm";
 
 export default function RegistrationForm() {
@@ -61,7 +61,7 @@ export default function RegistrationForm() {
         type="submit"
         isDisabled={isDisabled}
         label={isLoading ? "Loading" : "Register"}
-        icon={isLoading ? <Loader className="animate-spin" /> : <Plus />}
+        icon={isLoading ? <Loader className="animate-spin" /> : undefined}
       />
     </form>
   );

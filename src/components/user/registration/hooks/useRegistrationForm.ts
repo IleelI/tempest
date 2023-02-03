@@ -48,6 +48,7 @@ export default function useRegistrationForm() {
     trigger,
     handleSubmit,
   } = useForm<RegistrationSchema>({
+    mode: "all",
     defaultValues,
     resolver: zodResolver(registrationSchema),
   });
