@@ -20,8 +20,8 @@ export default async function handler(
   const { method } = req;
   switch (method) {
     case "POST": {
-      const { login, password } = req.body as LoginRequestBody;
       const pb = new PocketBase(env.POCKETBASE_URL);
+      const { login, password } = req.body as LoginRequestBody;
 
       try {
         const authData = await pb
@@ -31,7 +31,7 @@ export default async function handler(
         // "logout" the last authenticated account
         pb.authStore.clear();
 
-        return res.status(200).json({
+        res.status(200).json({
           data: {
             token: JSON.stringify(authData.token),
             user: JSON.stringify(authData.record),
@@ -42,7 +42,7 @@ export default async function handler(
       }
     }
     default: {
-      return res.status(400).json({ error: "Unknown method." });
+      res.status(400).json({ error: "Unknown method." });
     }
   }
 }

@@ -32,7 +32,8 @@ export default async function handler(
           env.POCKETBASE_ADMIN_PASSWORD
         );
       } catch (error) {
-        return res.status(500).json({ error: "Failed to create new user." });
+        console.log(error);
+        res.status(500).json({ error: "Failed to login as admin." });
       }
 
       // Check if given email already exists in DB
@@ -43,7 +44,7 @@ export default async function handler(
           .getFirstListItem(`email="${email}"`);
         // If user is already registered we throw an error
         if (user) {
-          return res.status(400).json({ error: "Email is already in use." });
+          res.status(400).json({ error: "Email is already in use." });
         }
       } catch (error) {}
 
@@ -56,14 +57,14 @@ export default async function handler(
       const record = await pb.collection("users").create(newUser);
       await pb.collection("users").requestVerification(email);
 
-      return res.status(200).json({
+      res.status(200).json({
         data: {
           user: JSON.stringify(record),
         },
       });
     }
     default: {
-      return res.status(400).json({ error: "Unknown method." });
+      res.status(400).json({ error: "Unknown method." });
     }
   }
 }
