@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import AppHeader from "../app-header/app-header";
 import AppNavigation from "../app-navigation/app-navigation";
+import AppToaster from "../app-toaster/app-toaster";
 
 type AppLayoutProps = {
   children: ReactNode;
@@ -11,6 +12,7 @@ export default function AppLayout({ children }: AppLayoutProps) {
       <AppHeader />
       {children}
       <AppNavigation />
+      <AppToaster />
     </div>
   );
 }

@@ -16,8 +16,8 @@ module.exports = {
       },
       boxShadow: {
         main: "0px 4px 16px -4px rgba(24, 24, 27, 0.1)",
-        switchLight: " 0px 0px 0px 8px rgba(0, 0, 0, 0.25)",
-        switchDark: " 0px 0px 0px 8px rgba(255, 255, 255, 0.25)",
+        switchLight: "0px 0px 0px 8px rgba(0, 0, 0, 0.25)",
+        switchDark: "0px 0px 0px 8px rgba(255, 255, 255, 0.25)",
       },
       aspectRatio: {
         twoToOne: "3/2",

@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
-import { Home, Grid, Heart, Settings } from "react-feather";
+import { Home, Grid, Heart, User } from "react-feather";
 import { getFirstSegment } from "utils/string";
 import NavigationLink from "./navigation-link/navigation-link";
 
@@ -27,9 +27,9 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
     icon: <Heart />,
   },
   {
-    to: "/settings",
-    label: "App settings",
-    icon: <Settings />,
+    to: "/user",
+    label: "User Profile",
+    icon: <User />,
   },
 ];
 
