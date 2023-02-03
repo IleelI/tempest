@@ -45,7 +45,7 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
         </label>
         <div
           className={clsx([
-            "flex overflow-hidden rounded-lg border border-neutral-300 bg-neutral-50 text-neutral-800 transition-colors",
+            "flex overflow-hidden rounded-lg border border-neutral-300 bg-neutral-50 text-neutral-800",
             "dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200",
             "hover:border-neutral-500 hover:dark:border-neutral-500",
             "focus-within:!border-blue-700 focus-within:dark:!border-blue-300",
@@ -65,12 +65,11 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           )}
           <input
             ref={ref}
-            id={name}
             type={type}
             placeholder={placeholder}
             {...inputProps}
             className={clsx([
-              "flex-[2] items-center border-none bg-transparent p-2 text-sm tracking-wide text-neutral-800 outline-none transition-colors",
+              "flex-[2] items-center border-none bg-transparent p-2 text-sm tracking-wide text-neutral-800 outline-none",
               "dark:text-neutral-200",
               error &&
                 "text-red-700 placeholder:text-red-700 placeholder:opacity-70 dark:text-red-300 dark:placeholder:text-red-300",
