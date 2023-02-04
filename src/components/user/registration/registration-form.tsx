@@ -16,7 +16,7 @@ export default function RegistrationForm() {
   const isDisabled = !isValid || isLoading;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-8">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
       <div className="flex flex-col gap-4">
         <header>
           <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
@@ -28,7 +28,7 @@ export default function RegistrationForm() {
             </h2>
           )}
         </header>
-        <fieldset className="flex flex-col gap-6">
+        <fieldset className="flex flex-col gap-4">
           <InputField
             isRequired
             label="Email"

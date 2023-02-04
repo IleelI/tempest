@@ -47,10 +47,9 @@ const InputField = forwardRef<HTMLInputElement, InputFieldProps>(
           className={clsx([
             "flex overflow-hidden rounded-lg border border-neutral-300 bg-neutral-50 text-neutral-800",
             "dark:border-neutral-700 dark:bg-neutral-800 dark:text-neutral-200",
-            "hover:border-neutral-500 hover:dark:border-neutral-500",
-            "focus-within:!border-blue-700 focus-within:dark:!border-blue-300",
+            "focus-within:border-blue-700 focus-within:dark:border-blue-300",
             error &&
-              "border-red-700 text-red-700 dark:border-red-300 dark:text-red-300",
+              "!border-red-700 !text-red-700 dark:!border-red-300 dark:!text-red-300",
           ])}
         >
           {icon && (

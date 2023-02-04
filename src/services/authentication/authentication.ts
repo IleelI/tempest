@@ -4,6 +4,7 @@ import type { LoginResponse } from "pages/api/auth/login";
 import type { RegisterResponse } from "pages/api/auth/register";
 import type { FailedResponse, SuccessfullResponse } from "utils/api";
 import { getErrorMessage } from "utils/api";
+import type { User, LoggedUser } from "./types";
 
 const REGISTER_ENDPOINT = "/api/auth/register";
 export async function registerNewUser({ email, password }: RegistrationSchema) {
@@ -13,6 +14,7 @@ export async function registerNewUser({ email, password }: RegistrationSchema) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         email,
         password,
@@ -23,7 +25,8 @@ export async function registerNewUser({ email, password }: RegistrationSchema) {
       const { error } = data as FailedResponse;
       throw new Error(error);
     }
-    return data as SuccessfullResponse<RegisterResponse>;
+    const registerResponse = data as SuccessfullResponse<RegisterResponse>;
+    return JSON.parse(registerResponse.data.user) as User;
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
@@ -37,6 +40,7 @@ export async function loginUser({ login, password }: LoginSchema) {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
       body: JSON.stringify({
         login,
         password,
@@ -47,7 +51,11 @@ export async function loginUser({ login, password }: LoginSchema) {
       const { error } = data as FailedResponse;
       throw new Error(error);
     }
-    return data as SuccessfullResponse<LoginResponse>;
+    const loginResponse = data as SuccessfullResponse<LoginResponse>;
+    return {
+      user: JSON.parse(loginResponse.data.user),
+      token: JSON.parse(loginResponse.data.token),
+    } as LoggedUser;
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }

@@ -43,6 +43,7 @@ const defaultValues: RegistrationSchema = {
 export default function useRegistrationForm() {
   const {
     formState: { errors, isValid },
+    reset,
     watch,
     register,
     trigger,
@@ -65,14 +66,17 @@ export default function useRegistrationForm() {
     async (formData) => {
       try {
         await mutateAsync(formData);
+        reset(defaultValues);
         toast.success("Account has been successfully created!");
       } catch (error) {
         toast.error(getErrorMessage(error));
       }
     },
-    [mutateAsync]
+    [mutateAsync, reset]
   );
 
+  // Watch changes inside password and cofirm fields
+  // trigger validation on every change, when both values are non empty.
   useEffect(() => {
     const watchSubscription = watch(({ password, confirm }) => {
       if (!password || !confirm) return;

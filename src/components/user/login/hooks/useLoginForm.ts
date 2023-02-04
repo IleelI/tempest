@@ -29,6 +29,7 @@ const defaultValues: LoginSchema = {
 export default function useLoginForm() {
   const {
     formState: { isValid, errors },
+    reset,
     register,
     handleSubmit,
   } = useForm<LoginSchema>({
@@ -44,14 +45,15 @@ export default function useLoginForm() {
   const onSubmit: SubmitHandler<LoginSchema> = useCallback(
     async (loginData) => {
       try {
-        const data = await mutateAsync(loginData);
-        console.log(JSON.parse(data.data.token), JSON.parse(data.data.user));
+        const { user, token } = await mutateAsync(loginData);
+        console.info({ user, token });
+        reset(defaultValues);
         toast.success("Logged in!");
       } catch (error) {
         toast.error(getErrorMessage(error));
       }
     },
-    [mutateAsync]
+    [mutateAsync, reset]
   );
 
   return {
