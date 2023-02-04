@@ -11,6 +11,7 @@ export type LoginResponse = {
   token: string;
   user: string;
 };
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse<LoginResponse>>

@@ -17,6 +17,7 @@ type RegisterRequestBody = {
 export type RegisterResponse = {
   user: string;
 };
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<ApiResponse<RegisterResponse>>
@@ -27,12 +28,14 @@ export default async function handler(
     case "POST": {
       const pb = new PocketBase(env.POCKETBASE_URL);
       const { email, password } = body as RegisterRequestBody;
+      
       // Checking if user with given email already exists
       // It will throw an error when user does NOT exist
       try {
         await pb.collection("users").getFirstListItem(`email="${email}"`);
         return res.status(400).json({ error: "Email is already in use." });
       } catch (error) {}
+      
       try {
         const createUserInput: CreateUserInput = {
           email,
