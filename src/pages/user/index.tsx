@@ -5,7 +5,7 @@ import Divider from "components/common/divider/divider";
 
 const UserPage: NextPage = function () {
   return (
-    <div className="flex flex-col gap-16">
+    <div className="flex flex-col gap-12">
       <LoginForm />
       <Divider title="or" />
       <RegistrationForm />

@@ -12,3 +12,8 @@ export type User = {
   username: string;
   verified: boolean;
 };
+
+export type LoggedUser = {
+  user: User;
+  token: string;
+};

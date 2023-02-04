@@ -9,14 +9,14 @@ function LoginForm() {
   const isDisabled = !isValid || isLoading;
 
   return (
-    <form className="flex flex-col gap-8" onSubmit={handleSubmit(onSubmit)}>
+    <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-4">
         <header>
           <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
             Login
           </h1>
         </header>
-        <fieldset className="flex flex-col gap-6">
+        <fieldset className="flex flex-col gap-4">
           <InputField
             isRequired
             label="Login"
@@ -36,7 +36,6 @@ function LoginForm() {
           />
         </fieldset>
       </div>
-
       <Button
         type="submit"
         isDisabled={isDisabled}
