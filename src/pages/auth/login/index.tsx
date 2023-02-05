@@ -1,12 +1,12 @@
 import Button from "components/common/button/button";
 import InputField from "components/common/input-field/input-field";
-import { Loader, Lock, User } from "react-feather";
-import useLoginForm from "./hooks/useLoginForm";
+import useLoginForm from "hooks/useLoginForm/useLoginForm";
+import type { NextPage } from "next";
+import { User, Lock } from "react-feather";
 
-function LoginForm() {
-  const { errors, isValid, isLoading, register, onSubmit, handleSubmit } =
-    useLoginForm();
-  const isDisabled = !isValid || isLoading;
+const LoginPage: NextPage = () => {
+  const { errors, isValid, register, onSubmit, handleSubmit } = useLoginForm();
+  const isDisabled = !isValid;
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
@@ -36,14 +36,9 @@ function LoginForm() {
           />
         </fieldset>
       </div>
-      <Button
-        type="submit"
-        isDisabled={isDisabled}
-        label="Login"
-        icon={isLoading ? <Loader className="animate-spin" /> : undefined}
-      />
+      <Button type="submit" isDisabled={isDisabled} label="Login" />
     </form>
   );
-}
+};
 
-export default LoginForm;
+export default LoginPage;

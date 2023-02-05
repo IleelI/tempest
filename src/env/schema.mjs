@@ -11,6 +11,7 @@ export const serverSchema = z.object({
   POCKETBASE_ADMIN_LOGIN: z.string().min(1),
   POCKETBASE_ADMIN_PASSWORD: z.string().min(1),
   POCKETBASE_URL: z.string().min(1),
+  NEXTAUTH_SECRET: z.string().min(1),
 });
 
 /**

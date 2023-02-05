@@ -1,9 +1,10 @@
 import Button from "components/common/button/button";
 import InputField from "components/common/input-field/input-field";
-import { Loader, Lock, Mail } from "react-feather";
-import useRegistrationForm from "./hooks/useRegistrationForm";
+import useRegisterForm from "hooks/useRegisterForm/useRegisterForm";
+import type { NextPage } from "next";
+import { Mail, Loader, Lock } from "react-feather";
 
-export default function RegistrationForm() {
+const RegisterPage: NextPage = () => {
   const {
     registrationError,
     errors,
@@ -12,7 +13,7 @@ export default function RegistrationForm() {
     register,
     handleSubmit,
     onSubmit,
-  } = useRegistrationForm();
+  } = useRegisterForm();
   const isDisabled = !isValid || isLoading;
 
   return (
@@ -65,4 +66,6 @@ export default function RegistrationForm() {
       />
     </form>
   );
-}
+};
+
+export default RegisterPage;
