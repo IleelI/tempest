@@ -15,7 +15,8 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "typeRoots": ["./src/types"]
   },
   "include": [
     "next-env.d.ts",

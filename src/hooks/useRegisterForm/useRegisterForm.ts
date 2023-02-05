@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { signIn } from "next-auth/react";
 import { useCallback, useEffect } from "react";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
@@ -8,7 +9,7 @@ import { registerNewUser } from "services/authentication/authentication";
 import { getErrorMessage } from "utils/api";
 import { z } from "zod";
 
-export const registrationSchema = z
+export const registerSchema = z
   .object({
     email: z
       .string({
@@ -33,14 +34,14 @@ export const registrationSchema = z
     message: "Passwords don't match",
     path: ["confirm"],
   });
-export type RegistrationSchema = z.infer<typeof registrationSchema>;
+export type RegisterSchema = z.infer<typeof registerSchema>;
 
-const defaultValues: RegistrationSchema = {
+const defaultValues: RegisterSchema = {
   email: "",
   password: "",
   confirm: "",
 };
-export default function useRegistrationForm() {
+export default function useRegisterForm() {
   const {
     formState: { errors, isValid },
     reset,
@@ -48,10 +49,10 @@ export default function useRegistrationForm() {
     register,
     trigger,
     handleSubmit,
-  } = useForm<RegistrationSchema>({
+  } = useForm<RegisterSchema>({
     mode: "all",
     defaultValues,
-    resolver: zodResolver(registrationSchema),
+    resolver: zodResolver(registerSchema),
   });
   const {
     error: registrationError,
@@ -62,12 +63,17 @@ export default function useRegistrationForm() {
     mutationFn: registerNewUser,
   });
 
-  const onSubmit: SubmitHandler<RegistrationSchema> = useCallback(
+  const onSubmit: SubmitHandler<RegisterSchema> = useCallback(
     async (formData) => {
       try {
         await mutateAsync(formData);
         reset(defaultValues);
         toast.success("Account has been successfully created!");
+        await signIn("credentials", {
+          username: formData.email,
+          password: formData.password,
+          callbackUrl: "/",
+        });
       } catch (error) {
         toast.error(getErrorMessage(error));
       }

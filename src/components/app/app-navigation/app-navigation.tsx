@@ -27,7 +27,7 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
     icon: <Heart />,
   },
   {
-    to: "/user",
+    to: "/profile",
     label: "User Profile",
     icon: <User />,
   },

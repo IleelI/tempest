@@ -1,12 +1,11 @@
+import { signIn } from "next-auth/react";
 import { getErrorMessage } from "utils/api";
-import { useMutation } from "react-query";
 import { useCallback } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "react-hot-toast";
-import { loginUser } from "services/authentication/authentication";
 
 export const loginSchema = z.object({
   login: z.string({
@@ -29,7 +28,6 @@ const defaultValues: LoginSchema = {
 export default function useLoginForm() {
   const {
     formState: { isValid, errors },
-    reset,
     register,
     handleSubmit,
   } = useForm<LoginSchema>({
@@ -37,29 +35,26 @@ export default function useLoginForm() {
     defaultValues,
     resolver: zodResolver(loginSchema),
   });
-  const { isLoading, mutateAsync } = useMutation({
-    mutationKey: "login-user",
-    mutationFn: loginUser,
-  });
 
   const onSubmit: SubmitHandler<LoginSchema> = useCallback(
-    async (loginData) => {
+    async ({ login: username, password }) => {
       try {
-        const { user, token } = await mutateAsync(loginData);
-        console.info({ user, token });
-        reset(defaultValues);
-        toast.success("Logged in!");
+        await signIn("credentials", {
+          username,
+          password,
+          callbackUrl: "/",
+          redirect: true,
+        });
       } catch (error) {
         toast.error(getErrorMessage(error));
       }
     },
-    [mutateAsync, reset]
+    []
   );
 
   return {
     errors,
     isValid,
-    isLoading,
     register,
     onSubmit,
     handleSubmit,

@@ -9,6 +9,7 @@ import { GeolocationProvider } from "context/geolocation-context";
 import useMounted from "hooks/useMounted/useMounted";
 import { LocationProvider } from "context/location-context";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { SessionProvider } from "next-auth/react";
 
 const mainFont = Quicksand({
   weight: "variable",
@@ -18,18 +19,24 @@ const mainFont = Quicksand({
 
 const queryClient = new QueryClient();
 
-const MyApp: AppType = (appProps) => {
+const MyApp: AppType = (appProps: AppProps) => {
+  const {
+    pageProps: { session },
+  } = appProps;
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <DarkModeProvider prefersSystemSettings>
-        <GeolocationProvider>
-          <LocationProvider>
-            <Container {...appProps} />
-          </LocationProvider>
-        </GeolocationProvider>
-      </DarkModeProvider>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <SessionProvider session={session}>
+      <QueryClientProvider client={queryClient}>
+        <DarkModeProvider prefersSystemSettings>
+          <GeolocationProvider>
+            <LocationProvider>
+              <Container {...appProps} />
+            </LocationProvider>
+          </GeolocationProvider>
+        </DarkModeProvider>
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </SessionProvider>
   );
 };
 
