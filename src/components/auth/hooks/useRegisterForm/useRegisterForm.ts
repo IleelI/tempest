@@ -5,7 +5,7 @@ import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
-import { registerNewUser } from "services/authentication/authentication";
+import { registerUser } from "services/registration/registration";
 import { getErrorMessage } from "utils/api";
 import { z } from "zod";
 
@@ -60,7 +60,7 @@ export default function useRegisterForm() {
     mutateAsync,
   } = useMutation({
     mutationKey: "register-user",
-    mutationFn: registerNewUser,
+    mutationFn: registerUser,
   });
 
   const onSubmit: SubmitHandler<RegisterSchema> = useCallback(
@@ -69,6 +69,7 @@ export default function useRegisterForm() {
         await mutateAsync(formData);
         reset(defaultValues);
         toast.success("Account has been successfully created!");
+        // Signing in newly created user and redirecting to homepage
         await signIn("credentials", {
           username: formData.email,
           password: formData.password,

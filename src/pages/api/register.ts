@@ -2,7 +2,7 @@ import PocketBase from "pocketbase";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "env/server.mjs";
 import type { ApiResponse } from "utils/api";
-import type { User } from "services/authentication/types";
+import type { RegisteredUser } from "services/registration/types";
 
 type CreateUserInput = {
   email: string;
@@ -28,14 +28,14 @@ export default async function handler(
     case "POST": {
       const pb = new PocketBase(env.POCKETBASE_URL);
       const { email, password } = body as RegisterRequestBody;
-      
+
       // Checking if user with given email already exists
       // It will throw an error when user does NOT exist
       try {
         await pb.collection("users").getFirstListItem(`email="${email}"`);
         return res.status(400).json({ error: "Email is already in use." });
       } catch (error) {}
-      
+
       try {
         const createUserInput: CreateUserInput = {
           email,
@@ -43,7 +43,9 @@ export default async function handler(
           passwordConfirm: password,
           emailVisibility: true,
         };
-        const user = await pb.collection("users").create<User>(createUserInput);
+        const user = await pb
+          .collection("users")
+          .create<RegisteredUser>(createUserInput);
         await pb.collection("users").requestVerification(email);
         return res.status(200).json({
           data: {

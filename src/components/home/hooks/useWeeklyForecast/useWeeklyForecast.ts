@@ -1,8 +1,8 @@
-import type { GetDailyForecastResponse } from "../../../../../services/openMeteo/types";
-import { useLocationContext } from "context/location-context";
 import { useQuery } from "react-query";
 import { getForecastByDay } from "services/openMeteo/openMeteo";
 import { useCallback, useMemo, useState } from "react";
+import type { GetDailyForecastResponse } from "services/openMeteo/types";
+import { useLocationContext } from "context/location-context/location-context";
 
 export type WeeklyForecast = {
   minTemperature: number;

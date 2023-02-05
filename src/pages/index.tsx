@@ -1,7 +1,6 @@
 import type { GetStaticProps, InferGetStaticPropsType } from "next";
 import { type NextPage } from "next";
 import Head from "next/head";
-import CitySelection from "components/home/components/city-selection/city-selection";
 import {
   getForecastByDay,
   getForecastByHour,
@@ -10,10 +9,11 @@ import type {
   GetDailyForecastResponse,
   GetTodayForecastResponse,
 } from "services/openMeteo/types";
+import { HourlyForecastProvider } from "components/home/context/hourly-forecast-context/hourly-forecast-context";
 import HourlyForecast from "components/home/components/hourly-forecast/hourly-forecast";
+import CitySelection from "components/home/components/city-selection/city-selection";
 import CurrentForecast from "components/home/components/current-forecast/current-forecast";
 import MiniInfoGrid from "components/home/components/mini-info-grid/mini-info-grid";
-import { HourlyForecastProvider } from "components/home/context/hourly-forecast-context";
 import WeeklyForecast from "components/home/components/weekly-forecast/weekly-forecast";
 
 type HomeProps = InferGetStaticPropsType<typeof getStaticProps>;

@@ -1,5 +1,8 @@
-import type { LocationType } from "context/location-context";
-import { DEFAULT_LOCATION, useLocationContext } from "context/location-context";
+import type { LocationType } from "context/location-context/location-context";
+import {
+  DEFAULT_LOCATION,
+  useLocationContext,
+} from "context/location-context/location-context";
 import type { Comparator } from "lodash";
 import { debounce, uniqWith } from "lodash";
 import { useCallback, useMemo } from "react";

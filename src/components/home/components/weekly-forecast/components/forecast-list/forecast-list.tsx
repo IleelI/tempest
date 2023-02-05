@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { useMemo } from "react";
-import type { WeeklyForecast } from "../../hooks/useWeeklyForecast";
+import type { WeeklyForecast } from "../../../../hooks/useWeeklyForecast/useWeeklyForecast";
 import Forecast from "../forecast/forecast";
 
 type ForecastListProps = {
