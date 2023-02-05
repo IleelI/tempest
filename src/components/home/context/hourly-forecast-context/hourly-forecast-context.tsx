@@ -1,4 +1,4 @@
-import { useLocationContext } from "context/location-context";
+import { useLocationContext } from "context/location-context/location-context";
 import type { ReactNode } from "react";
 import { createContext, useContext } from "react";
 import { useQuery } from "react-query";

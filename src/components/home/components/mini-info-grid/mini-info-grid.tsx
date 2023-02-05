@@ -1,4 +1,4 @@
-import InfoCard from "components/home/components/mini-info-grid/components/info-card/info-card";
+import InfoCard from "./components/info-card/info-card";
 import useMiniInfoGrid from "./hooks/useMiniInfoGrid";
 
 const MiniInfoGrid = () => {

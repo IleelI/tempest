@@ -1,6 +1,8 @@
 import { Moon, Sun } from "react-feather";
-import { useDarkModeContext } from "context/dark-mode-context";
+import { useDarkModeContext } from "context/dark-mode-context/dark-mode-context";
 import Switch from "../../common/switch/switch";
+import Link from "next/link";
+import clsx from "clsx";
 import useMounted from "hooks/useMounted/useMounted";
 
 const AppHeader = () => {
@@ -9,9 +11,16 @@ const AppHeader = () => {
 
   return (
     <header className="flex flex-wrap items-center justify-between gap-8">
-      <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50">
+      <Link
+        href="/"
+        className={clsx([
+          "text-2xl font-bold text-neutral-900",
+          "dark:text-neutral-50",
+          "hover:text-blue-700 hover:underline hover:underline-offset-4 hover:dark:text-blue-300",
+        ])}
+      >
         Tempest
-      </h1>
+      </Link>
       {isMounted && (
         <Switch
           name="dark-mode"

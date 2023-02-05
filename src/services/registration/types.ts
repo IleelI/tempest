@@ -1,4 +1,4 @@
-export type User = {
+export type RegisteredUser = {
   avatar: string;
   collectionId: string;
   collectionName: string;
@@ -11,9 +11,4 @@ export type User = {
   updated: string;
   username: string;
   verified: boolean;
-};
-
-export type LoggedUser = {
-  user: User;
-  token: string;
 };

@@ -1,8 +1,8 @@
 import clsx from "clsx";
+import useHourlyForecast from "../../hooks/useHourlyForecast/useHourlyForecast";
 import { format, parseISO } from "date-fns";
 import React from "react";
 import { getWeatherIcon } from "services/openMeteo/utils";
-import useHourlyForecast from "../../hooks/useHourlyForecast";
 
 const HourlyForecast = () => {
   const { hourlyData } = useHourlyForecast();

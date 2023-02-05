@@ -1,6 +1,9 @@
+import AuthHeader, {
+  AuthRedirect,
+} from "components/auth/components/auth-header/auth-header";
+import useRegisterForm from "components/auth/hooks/useRegisterForm/useRegisterForm";
 import Button from "components/common/button/button";
 import InputField from "components/common/input-field/input-field";
-import useRegisterForm from "hooks/useRegisterForm/useRegisterForm";
 import type { NextPage } from "next";
 import { Mail, Loader, Lock } from "react-feather";
 
@@ -18,17 +21,13 @@ const RegisterPage: NextPage = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
-      <div className="flex flex-col gap-4">
-        <header>
-          <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
-            Create new account
-          </h1>
-          {Boolean(registrationError) && (
-            <h2 className="text-sm font-medium tracking-wide text-red-700 dark:text-red-300">
-              {String(registrationError)}
-            </h2>
-          )}
-        </header>
+      <section className="flex flex-col gap-4">
+        <AuthHeader
+          title="Create an account"
+          redirect={AuthRedirect.LOGIN}
+          redirectMessage="Already have an account? Log in"
+          error={registrationError}
+        />
         <fieldset className="flex flex-col gap-4">
           <InputField
             isRequired
@@ -57,13 +56,15 @@ const RegisterPage: NextPage = () => {
             {...register("confirm")}
           />
         </fieldset>
-      </div>
-      <Button
-        type="submit"
-        isDisabled={isDisabled}
-        label={isLoading ? "Loading" : "Register"}
-        icon={isLoading ? <Loader className="animate-spin" /> : undefined}
-      />
+      </section>
+      <section className="self-end">
+        <Button
+          type="submit"
+          isDisabled={isDisabled}
+          label={isLoading ? "Loading" : "Register"}
+          icon={isLoading ? <Loader className="animate-spin" /> : undefined}
+        />
+      </section>
     </form>
   );
 };

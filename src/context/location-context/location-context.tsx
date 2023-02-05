@@ -9,7 +9,7 @@ import {
   DEFAULT_LONGITUDE,
 } from "services/openMeteo/openMeteo";
 import { getCityFromGeolocation } from "services/openWeatherGeo/openWeatherGeo";
-import { useGeolocationContext } from "./geolocation-context";
+import { useGeolocationContext } from "../geolocation-context/geolocation-context";
 
 export type LocationType = {
   name: string;

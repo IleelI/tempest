@@ -1,7 +1,7 @@
 import { getHours } from "date-fns";
 import { useMemo } from "react";
 import type { HourlyData } from "services/openMeteo/types";
-import { useHourlyForecastContext } from "../context/hourly-forecast-context";
+import { useHourlyForecastContext } from "components/home/context/hourly-forecast-context/hourly-forecast-context";
 
 export type CurrentForecastWithUnits = {
   [Property in keyof HourlyData]: {
