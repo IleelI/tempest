@@ -8,6 +8,9 @@ module.exports = {
 
   theme: {
     extend: {
+      gridTemplateColumns: {
+        favouriteLocations: "minmax(0, 1fr), max-content",
+      },
       fontFamily: {
         sans: ["var(--font-main)", ...fontFamily.sans],
       },

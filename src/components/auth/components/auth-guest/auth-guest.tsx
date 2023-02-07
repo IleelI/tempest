@@ -4,7 +4,11 @@ import { useRouter } from "next/router";
 import React from "react";
 import { UserPlus, LogIn } from "react-feather";
 
-function Unlogged() {
+type AuthGuestProps = {
+  title: string;
+  message: string;
+};
+function AuthGuest({ title, message }: AuthGuestProps) {
   const { push } = useRouter();
 
   return (
@@ -16,7 +20,7 @@ function Unlogged() {
             "dark:text-neutral-200",
           ])}
         >
-          Welcome!
+          {title}
         </h1>
         <h2
           className={clsx([
@@ -24,7 +28,7 @@ function Unlogged() {
             "dark:text-neutral-300",
           ])}
         >
-          Log in to access your account.
+          {message}
         </h2>
       </header>
       <section className="flex items-center gap-8">
@@ -46,4 +50,4 @@ function Unlogged() {
   );
 }
 
-export default Unlogged;
+export default AuthGuest;

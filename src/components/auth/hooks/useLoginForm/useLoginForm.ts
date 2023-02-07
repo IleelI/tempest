@@ -37,7 +37,7 @@ export default function useLoginForm() {
     resolver: zodResolver(loginSchema),
   });
   const [loginError, setLoginError] = useState<string | null>(null);
-  const { push } = useRouter();
+  const { back } = useRouter();
 
   const onSubmit: SubmitHandler<LoginSchema> = useCallback(
     async ({ login: username, password }) => {
@@ -54,13 +54,14 @@ export default function useLoginForm() {
         // If everything is ok we show success toast, clear errors and redirect to the homepage
         toast.success("Logged in!");
         setLoginError(null);
-        push("/");
+        // Go back to page that user request login from.
+        back();
       } catch (error) {
         setLoginError(getErrorMessage(error));
         toast.error(getErrorMessage(error));
       }
     },
-    [push]
+    [back]
   );
 
   return {
