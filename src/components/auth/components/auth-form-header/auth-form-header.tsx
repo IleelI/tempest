@@ -5,18 +5,18 @@ export enum AuthRedirect {
   LOGIN = "/auth/login",
   REGISTER = "/auth/register",
 }
-type AuthHeaderProps = {
+type AuthFormHeaderProps = {
   title: string;
   redirectMessage: string;
   redirect: AuthRedirect;
   error?: unknown;
 };
-function AuthHeader({
+function AuthFormHeader({
   title,
   redirectMessage,
   redirect,
   error,
-}: AuthHeaderProps) {
+}: AuthFormHeaderProps) {
   return (
     <header className="flex flex-col gap-2">
       <h1 className="text-2xl font-semibold text-neutral-900 dark:text-neutral-100">
@@ -40,4 +40,4 @@ function AuthHeader({
   );
 }
 
-export default AuthHeader;
+export default AuthFormHeader;
