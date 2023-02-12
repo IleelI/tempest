@@ -13,5 +13,8 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["tempest-app.fly.dev"],
+  },
 };
 export default config;

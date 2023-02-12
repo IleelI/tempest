@@ -1,21 +1,35 @@
-import Button from "components/common/button/button";
 import AuthGuest from "components/auth/components/auth-guest/auth-guest";
+import ProfileActions from "components/profile/profile-actions/profile-actions";
+import ProfileForm from "components/profile/profile-form/profile-form";
+import ProfileHeader from "components/profile/profile-header/profile-header";
 import type { NextPage } from "next";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import Head from "next/head";
 
 const ProfilePage: NextPage = () => {
   const { data: session } = useSession();
 
-  if (!session?.user)
+  if (!session?.user) {
     return (
       <AuthGuest title="Welcome!" message="Log in to access your profile." />
     );
-
+  }
   return (
-    <div className="flex flex-col gap-4">
-      <h1>Your Profile</h1>
-      <Button label="Sign out" onClick={() => signOut()} />
-    </div>
+    <>
+      <Head>
+        <title>Tempest - Profile</title>
+        <meta name="description" content="Tempest - Profile" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <main className="flex flex-col items-center gap-4">
+        <ProfileHeader user={session.user} />
+        <article className="flex w-full flex-col gap-6 lg:gap-8">
+          <ProfileForm user={session.user} />
+          <div className="h-[1px] w-full rounded-full bg-neutral-300" />
+          <ProfileActions />
+        </article>
+      </main>
+    </>
   );
 };
 
