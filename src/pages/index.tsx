@@ -24,8 +24,8 @@ const Home: NextPage<HomeProps> = ({
   return (
     <>
       <Head>
-        <title>Tempest</title>
-        <meta name="description" content="Tempest" />
+        <title>Tempest - Home</title>
+        <meta name="description" content="Tempest - Home" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex flex-col gap-6">
