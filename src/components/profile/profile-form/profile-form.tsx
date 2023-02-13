@@ -1,10 +1,14 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Button from "components/common/button/button";
 import InputField from "components/common/input-field/input-field";
-import type { User } from "next-auth";
+import { getSession, useSession } from "next-auth/react";
+import { useEffect } from "react";
 import { User as UserIcon } from "react-feather";
 import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { updateUsername } from "services/user/user";
+import { getErrorMessage } from "utils/api";
 import { z } from "zod";
 
 const profileSchema = z.object({
@@ -17,25 +21,58 @@ const profileSchema = z.object({
 });
 type ProfileSchema = z.infer<typeof profileSchema>;
 
-type ProfileFormProps = {
-  user: User;
-};
-export default function ProfileForm({ user }: ProfileFormProps) {
+export default function ProfileForm() {
+  const { data } = useSession();
   const {
     formState: { isDirty, errors },
+    reset,
     register,
     handleSubmit,
   } = useForm<ProfileSchema>({
     resolver: zodResolver(profileSchema),
     mode: "all",
     defaultValues: {
-      username: user.username,
+      username: data?.user?.username || "",
     },
   });
 
-  const onSubmit: SubmitHandler<ProfileSchema> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<ProfileSchema> = async ({ username }) => {
+    try {
+      const {
+        user: { username: updatedUsername },
+      } = await updateUsername(username);
+      triggerAuthContextUpdate();
+      reset({ username: updatedUsername });
+      toast.success("Username changed");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
+    }
   };
+
+  const triggerAuthContextUpdate = () => {
+    // Hack to trigger auth context update
+    const event = new Event("visibilitychange");
+    document.dispatchEvent(event);
+  };
+
+  useEffect(() => {
+    // Function that mimics window change
+    const handleAuthContextUpdate = () =>
+      !document.hidden && getSession({ event: "visibilitychange" });
+
+    // Adding event listener to the document
+    document.addEventListener(
+      "visibilitychange",
+      handleAuthContextUpdate,
+      false
+    );
+    // Removing event listener from the document
+    return document.removeEventListener(
+      "visibilitychange",
+      handleAuthContextUpdate,
+      false
+    );
+  }, []);
 
   return (
     <form
