@@ -9,6 +9,7 @@ const HourlyForecast = () => {
 
   return (
     <article
+      role="list"
       className={clsx([
         "carousel",
         "grid max-w-full grid-flow-col items-center gap-4 p-4 pt-5",

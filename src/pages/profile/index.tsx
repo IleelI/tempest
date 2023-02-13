@@ -24,8 +24,8 @@ const ProfilePage: NextPage = () => {
       <main className="flex flex-col items-center gap-4">
         <ProfileHeader user={session.user} />
         <article className="flex w-full flex-col gap-6 lg:gap-8">
-          <ProfileForm user={session.user} />
-          <div className="h-[1px] w-full rounded-full bg-neutral-300" />
+          <ProfileForm />
+          <div className="mx-auto h-[1px] w-full rounded-full bg-neutral-300 dark:bg-neutral-700" />
           <ProfileActions />
         </article>
       </main>
