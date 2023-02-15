@@ -1,6 +1,6 @@
 import Button from "components/common/button/button";
 import useLogout from "hooks/useLogout/useLogout";
-import { Lock, LogOut, Trash } from "react-feather";
+import { LogOut, Trash } from "react-feather";
 
 export default function ProfileActions() {
   const logout = useLogout();
@@ -8,15 +8,10 @@ export default function ProfileActions() {
   return (
     <section className="flex flex-col gap-4">
       <Button
-        label="Change password"
-        icon={<Lock />}
-        className="!justify-start"
-      />
-      <Button
         label="Log out"
         icon={<LogOut />}
         className="!justify-start"
-        onClick={() => logout()}
+        onClick={logout}
       />
       <Button
         label="Delete account"

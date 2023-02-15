@@ -1,10 +1,9 @@
 import { env } from "env/server.mjs";
-import { update } from "lodash";
 import type { AuthOptions, User as NextUser } from "next-auth";
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import PocketBase from "pocketbase";
-import type { RegisteredUser } from "services/registration/types";
+import type { AppUser } from "services/user/user";
 
 export const authOptions: AuthOptions = {
   secret: env.NEXTAUTH_SECRET,
@@ -29,7 +28,7 @@ export const authOptions: AuthOptions = {
         await pb.collection("users").authRefresh();
         const updatedUser = await pb
           .collection("users")
-          .getOne<RegisteredUser>(userId);
+          .getOne<AppUser>(userId);
         session.user = {
           ...tokenUser,
           username: updatedUser.username,
@@ -58,7 +57,7 @@ export const authOptions: AuthOptions = {
           const pb = new PocketBase(env.POCKETBASE_URL);
           const authData = await pb
             .collection("users")
-            .authWithPassword<RegisteredUser>(login, password);
+            .authWithPassword<AppUser>(login, password);
           const { id, name, email, avatar: image, username } = authData.record;
           const pbToken = authData.token;
           return {

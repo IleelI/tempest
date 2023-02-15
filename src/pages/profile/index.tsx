@@ -1,10 +1,12 @@
 import AuthGuest from "components/auth/components/auth-guest/auth-guest";
 import ProfileActions from "components/profile/profile-actions/profile-actions";
-import ProfileForm from "components/profile/profile-form/profile-form";
+import ProfileUsernameForm from "components/profile/profile-username-form/profile-username-form";
 import ProfileHeader from "components/profile/profile-header/profile-header";
 import type { NextPage } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
+import ProfilePasswordForm from "components/profile/profile-password-form/profile-password-form";
+import Divider from "components/common/divider/divider";
 
 const ProfilePage: NextPage = () => {
   const { data: session } = useSession();
@@ -21,11 +23,14 @@ const ProfilePage: NextPage = () => {
         <meta name="description" content="Tempest - Profile" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="flex flex-col items-center gap-4">
+      <main className="flex flex-col items-center gap-8">
         <ProfileHeader user={session.user} />
-        <article className="flex w-full flex-col gap-6 lg:gap-8">
-          <ProfileForm />
-          <div className="mx-auto h-[1px] w-full rounded-full bg-neutral-300 dark:bg-neutral-700" />
+        <article className="flex w-full flex-col gap-8">
+          <Divider />
+          <ProfileUsernameForm />
+          <Divider />
+          <ProfilePasswordForm />
+          <Divider />
           <ProfileActions />
         </article>
       </main>

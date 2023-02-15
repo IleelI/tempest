@@ -1,8 +1,8 @@
+import type { AppUser } from "services/user/user";
 import PocketBase from "pocketbase";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { env } from "env/server.mjs";
 import type { ApiResponse } from "utils/api";
-import type { RegisteredUser } from "services/registration/types";
 
 type CreateUserInput = {
   email: string;
@@ -45,15 +45,16 @@ export default async function handler(
         };
         const user = await pb
           .collection("users")
-          .create<RegisteredUser>(createUserInput);
+          .create<AppUser>(createUserInput);
         await pb.collection("users").requestVerification(email);
+
         return res.status(200).json({
           data: {
             user: JSON.stringify(user),
           },
         });
       } catch (error) {
-        return res.status(400).json({ error: "Something went wrong." });
+        return res.status(500).json({ error: "Something went wrong." });
       }
     }
     default: {

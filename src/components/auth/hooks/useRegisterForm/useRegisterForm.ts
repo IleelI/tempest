@@ -5,41 +5,18 @@ import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
-import { registerUser } from "services/registration/registration";
+import { emailSchema, passwordWithConfirmationSchema } from "schemas";
+import { registerUser } from "services/user/user";
 import { getErrorMessage } from "utils/api";
-import { z } from "zod";
+import type { z } from "zod";
 
-export const registerSchema = z
-  .object({
-    email: z
-      .string({
-        required_error: "Email is required",
-        invalid_type_error: "Email must be a string",
-      })
-      .email({ message: "Invalide email address" }),
-    password: z
-      .string({
-        required_error: "Password is required",
-        invalid_type_error: "Password must be a string",
-      })
-      .min(8, "Password must be at least 8 characters long"),
-    confirm: z
-      .string({
-        required_error: "Password is required",
-        invalid_type_error: "Password must be a string",
-      })
-      .min(8, "Password must be at least 8 characters long"),
-  })
-  .refine(({ password, confirm }) => password === confirm, {
-    message: "Passwords don't match",
-    path: ["confirm"],
-  });
+export const registerSchema = emailSchema.and(passwordWithConfirmationSchema);
 export type RegisterSchema = z.infer<typeof registerSchema>;
 
 const defaultValues: RegisterSchema = {
   email: "",
   password: "",
-  confirm: "",
+  passwordConfirm: "",
 };
 export default function useRegisterForm() {
   const {
@@ -85,9 +62,9 @@ export default function useRegisterForm() {
   // Watch changes inside password and cofirm fields
   // trigger validation on every change, when both values are non empty.
   useEffect(() => {
-    const watchSubscription = watch(({ password, confirm }) => {
-      if (!password || !confirm) return;
-      trigger(["password", "confirm"]);
+    const watchSubscription = watch(({ password, passwordConfirm }) => {
+      if (!password || !passwordConfirm) return;
+      trigger(["password", "passwordConfirm"]);
     });
     return () => {
       watchSubscription.unsubscribe();
