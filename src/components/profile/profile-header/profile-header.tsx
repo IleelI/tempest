@@ -23,7 +23,13 @@ export default function ProfileHeader({ user }: ProfileHeaderProps) {
         ])}
       >
         {hasImage ? (
-          <Image priority fill alt="User profile image" src={imageSrc} />
+          <Image
+            priority
+            fill
+            sizes="96px"
+            alt="User profile image"
+            src={imageSrc}
+          />
         ) : (
           <UserIcon className="h-full w-full translate-y-1.5 stroke-[0.5]" />
         )}

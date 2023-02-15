@@ -7,19 +7,16 @@ import type { SubmitHandler } from "react-hook-form";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { toast } from "react-hot-toast";
+import { passwordSchema } from "schemas";
 
-export const loginSchema = z.object({
-  login: z.string({
-    required_error: "Login is required",
-    invalid_type_error: "Login must be a string",
-  }),
-  password: z
-    .string({
-      required_error: "Password is required",
-      invalid_type_error: "Password must be a string",
-    })
-    .min(8, "Password must be at least 8 characters long"),
-});
+export const loginSchema = passwordSchema.merge(
+  z.object({
+    login: z.string({
+      required_error: "Login is required",
+      invalid_type_error: "Login must be a string",
+    }),
+  })
+);
 export type LoginSchema = z.infer<typeof loginSchema>;
 
 const defaultValues: LoginSchema = {

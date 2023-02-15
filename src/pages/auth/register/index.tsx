@@ -63,8 +63,8 @@ const RegisterPage: NextPage = () => {
             label="Confirm Password"
             placeholder="Password"
             icon={<Lock />}
-            error={errors.confirm}
-            {...register("confirm")}
+            error={errors.passwordConfirm}
+            {...register("passwordConfirm")}
           />
         </fieldset>
       </section>

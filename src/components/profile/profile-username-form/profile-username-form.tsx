@@ -11,7 +11,7 @@ import { updateUsername } from "services/user/user";
 import { getErrorMessage } from "utils/api";
 import { z } from "zod";
 
-const profileSchema = z.object({
+const usernameSchema = z.object({
   username: z
     .string({
       required_error: "Username is required",
@@ -19,24 +19,24 @@ const profileSchema = z.object({
     })
     .min(1, "Username cannot be empty"),
 });
-type ProfileSchema = z.infer<typeof profileSchema>;
+type UsernameSchema = z.infer<typeof usernameSchema>;
 
-export default function ProfileForm() {
+export default function ProfileUsernameForm() {
   const { data } = useSession();
   const {
     formState: { isDirty, errors },
     reset,
     register,
     handleSubmit,
-  } = useForm<ProfileSchema>({
-    resolver: zodResolver(profileSchema),
+  } = useForm<UsernameSchema>({
+    resolver: zodResolver(usernameSchema),
     mode: "all",
     defaultValues: {
       username: data?.user?.username || "",
     },
   });
 
-  const onSubmit: SubmitHandler<ProfileSchema> = async ({ username }) => {
+  const onSubmit: SubmitHandler<UsernameSchema> = async ({ username }) => {
     try {
       const {
         user: { username: updatedUsername },
@@ -75,22 +75,27 @@ export default function ProfileForm() {
   }, []);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex w-full flex-col gap-4"
-    >
-      <InputField
-        label="Username"
-        {...register("username")}
-        error={errors.username}
-      />
-      <Button
-        isDisabled={Boolean(errors.username) || !isDirty}
-        type="submit"
-        label="Change username"
-        className="!justify-start"
-        icon={<UserIcon />}
-      />
-    </form>
+    <section className="flex flex-col gap-4">
+      <h1 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200">
+        Change username
+      </h1>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex w-full flex-col gap-4"
+      >
+        <InputField
+          label="Username"
+          {...register("username")}
+          error={errors.username}
+        />
+        <Button
+          isDisabled={Boolean(errors.username) || !isDirty}
+          type="submit"
+          label="Change username"
+          className="!justify-start"
+          icon={<UserIcon />}
+        />
+      </form>
+    </section>
   );
 }
