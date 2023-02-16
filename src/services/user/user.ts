@@ -90,3 +90,23 @@ export async function updatePassword(
     throw new Error(getErrorMessage(error));
   }
 }
+
+const DELETE_USER_API_ROUTE = "/api/delete-user";
+export async function deleteAccount() {
+  try {
+    const response = await fetch(DELETE_USER_API_ROUTE, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const data = await response.json();
+    if (!response.ok) {
+      const { error } = data as FailedResponse;
+      throw new Error(error);
+    }
+    return null;
+  } catch (error) {
+    throw new Error(getErrorMessage(error));
+  }
+}
