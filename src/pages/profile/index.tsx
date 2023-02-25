@@ -24,7 +24,7 @@ const ProfilePage: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="flex flex-col items-center gap-8">
-        <ProfileHeader user={session.user} />
+        <ProfileHeader />
         <article className="flex w-full flex-col gap-8">
           <Divider />
           <ProfileUsernameForm />
