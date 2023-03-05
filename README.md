@@ -5,9 +5,7 @@ Tempest is minimalistic weather application that provides you with reliable data
 
 ## Features ✨
 * Use geolocation to get most accurate weather for your location
-* Save your favorite locations to get them in a blink of an eye
-* See detailed weather maps for current location
-* Use settings to change displayed units
+* See detailed weather statistics for current location
 * Register/Login
 
 ## Tech stack 🔌
