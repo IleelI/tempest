@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { useMemo } from "react";
-import { Home, Grid, Heart, User } from "react-feather";
+import { Home, Heart, User } from "react-feather";
 import { getFirstSegment } from "utils/string";
 import NavigationLink from "./navigation-link/navigation-link";
 
@@ -15,11 +15,6 @@ const NAVIGATION_ITEMS: NavigationItem[] = [
     to: "/",
     label: "Home",
     icon: <Home />,
-  },
-  {
-    to: "/details",
-    label: "Weather details",
-    icon: <Grid />,
   },
   {
     to: "/favourites",
