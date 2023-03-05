@@ -1,9 +1,9 @@
 import AsyncSelect from "react-select/async";
 import { getFlagEmoji } from "utils/string";
 import clsx from "clsx";
-import useCitySelect from "./hooks/useCitySelect";
-import type { LocationType } from "context/location-context";
+import useCitySelect from "./useCitySelect";
 import type { ClassNamesConfig, FormatOptionLabelMeta } from "react-select";
+import type { LocationType } from "context/location-context/location-context";
 
 const selectClasses: ClassNamesConfig<LocationType, false> = {
   container: () => "bg-transparent flex-[2] outline-neutral-300",

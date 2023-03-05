@@ -1,8 +1,8 @@
-import type { InfoCardData } from "components/common/info-card/info-card";
-import type { CurrentForecastWithUnits } from "components/home/hooks/useCurrentForecast";
-import useCurrentForecast from "components/home/hooks/useCurrentForecast";
+import type { CurrentForecastWithUnits } from "components/home/hooks/useCurrentForecast/useCurrentForecast";
+import useCurrentForecast from "components/home/hooks/useCurrentForecast/useCurrentForecast";
 import { useMemo } from "react";
 import { Umbrella, CloudSnow, Droplet, Info, ArrowDown } from "react-feather";
+import type { InfoCardData } from "../components/info-card/info-card";
 
 export default function useMiniInfoGrid() {
   const { currentForecastWithUnits } = useCurrentForecast();

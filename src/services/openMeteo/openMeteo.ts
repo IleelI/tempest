@@ -29,15 +29,13 @@ export async function getForecastByDay(
     const endDate = formatISO(endingDate ?? add(new Date(), { weeks: 2 }), {
       representation: "date",
     });
-
     const url = `${BASE_URL}?latitude=${latitude}&longitude=${lonitude}&start_date=${startDate}&end_date=${endDate}&timezone=Europe%2FWarsaw&daily=${FORECAST_BY_DAY_FIELDS}`;
     const response = await fetch(url);
-
     // Checking against non-network errors
     if (!response.ok) {
       throw new Error(`[getForecastByDay] Error(${response.status})!`);
     }
-    return response.json() as Promise<GetDailyForecastResponse>;
+    return (await response.json()) as GetDailyForecastResponse;
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
@@ -61,15 +59,13 @@ export async function getForecastByHour(
         representation: "date",
       }
     );
-
     const url = `${BASE_URL}?&latitude=${latitude}&longitude=${longitude}&start_date=${startDate}&end_date=${endDate}&timezone=Europe%2FWarsaw&hourly=${FORECAST_BY_HOUR_FIELDS}`;
     const response = await fetch(url);
-
     // Checking against non-network errors
     if (!response.ok) {
       throw new Error(`[getForecastByHour] Error(${response.status})!`);
     }
-    return response.json() as Promise<GetTodayForecastResponse>;
+    return (await response.json()) as GetTodayForecastResponse;
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }

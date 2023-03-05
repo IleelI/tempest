@@ -1,7 +1,7 @@
 import { zip } from "lodash";
 import { useMemo } from "react";
 import { getHours } from "date-fns";
-import { useHourlyForecastContext } from "../context/hourly-forecast-context";
+import { useHourlyForecastContext } from "components/home/context/hourly-forecast-context/hourly-forecast-context";
 
 export default function useHourlyForecast() {
   const { hourlyForecastData } = useHourlyForecastContext();

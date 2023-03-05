@@ -8,6 +8,10 @@ import { z } from "zod";
 export const serverSchema = z.object({
   NODE_ENV: z.enum(["development", "test", "production"]),
   OPEN_WEATHER_API_KEY: z.string().min(1),
+  POCKETBASE_ADMIN_LOGIN: z.string().min(1),
+  POCKETBASE_ADMIN_PASSWORD: z.string().min(1),
+  POCKETBASE_URL: z.string().min(1),
+  NEXTAUTH_SECRET: z.string().min(1),
 });
 
 /**

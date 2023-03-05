@@ -2,7 +2,7 @@ import clsx from "clsx";
 import type { GetDailyForecastResponse } from "services/openMeteo/types";
 import ExpandButton from "./components/expand-button/expand-button";
 import ForecastList from "./components/forecast-list/forecast-list";
-import useWeeklyForecast from "./hooks/useWeeklyForecast";
+import useWeeklyForecast from "../../hooks/useWeeklyForecast/useWeeklyForecast";
 
 type WeeklyForecastProps = {
   initialData?: GetDailyForecastResponse;

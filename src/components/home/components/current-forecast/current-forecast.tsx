@@ -1,4 +1,4 @@
-import useCurrentForecast from "components/home/hooks/useCurrentForecast";
+import useCurrentForecast from "../../hooks/useCurrentForecast/useCurrentForecast";
 import React from "react";
 import { formatWeatherCode, getWeatherIcon } from "services/openMeteo/utils";
 import { renderTimeOfTheDay } from "utils/time";

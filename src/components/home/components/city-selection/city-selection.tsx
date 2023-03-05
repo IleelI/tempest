@@ -1,5 +1,5 @@
 import Tooltip from "components/common/tooltip/tooltip";
-import { useGeolocationContext } from "context/geolocation-context";
+import { useGeolocationContext } from "context/geolocation-context/geolocation-context";
 import { MapPin } from "react-feather";
 import CitySelect from "./city-select/city-select";
 

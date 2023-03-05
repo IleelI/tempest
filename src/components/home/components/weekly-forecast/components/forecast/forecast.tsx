@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { parseISO, isSameDay, format } from "date-fns";
 import { getWeatherIcon } from "services/openMeteo/utils";
-import type { WeeklyForecast } from "../../hooks/useWeeklyForecast";
+import type { WeeklyForecast } from "../../../../hooks/useWeeklyForecast/useWeeklyForecast";
 import ForecastTemperature from "./forecast-temperature";
 
 type ForecastProps = {

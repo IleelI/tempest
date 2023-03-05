@@ -2,6 +2,7 @@ import { getErrorMessage } from "utils/api";
 import type { GeocodingResponse } from "./types";
 
 const BASE_URL = "http://api.openweathermap.org/geo/1.0";
+const API_ROUTE = "/api/data";
 
 // This functions are solely used for get-City api route
 export async function ApiGetCityFromGeolocation(
@@ -13,12 +14,11 @@ export async function ApiGetCityFromGeolocation(
   try {
     const limit = getMulti ? 5 : 1;
     const url = `${BASE_URL}/reverse?lat=${latitude}&lon=${longitude}&limit=${limit}&appid=${apiKey}`;
-
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`[getCityFromGeolocation] Error(${response.status})!`);
     }
-    return response.json() as Promise<GeocodingResponse[]>;
+    return (await response.json()) as GeocodingResponse[];
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
@@ -33,12 +33,11 @@ export async function ApiGetGeolocationFromCity(
   try {
     const limit = getMulti ? 5 : 1;
     const url = `${BASE_URL}/direct?q=${city}&limit=${limit}&appid=${apiKey}`;
-
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`[getLocationFromCity] Error(${response.status})!`);
     }
-    return response.json() as Promise<GeocodingResponse[]>;
+    return (await response.json()) as GeocodingResponse[];
   } catch (error) {
     throw new Error(getErrorMessage(error));
   }
@@ -46,8 +45,7 @@ export async function ApiGetGeolocationFromCity(
 
 export async function getGeolocationFromCity(city: string) {
   try {
-    const url = `${location.origin}/api/get-location?city=${city}`;
-
+    const url = `${API_ROUTE}/get-location?city=${city}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`[${url}]: something went wrong.`);
@@ -60,7 +58,7 @@ export async function getGeolocationFromCity(city: string) {
 
 export async function getGeolocationsFromCity(city: string) {
   try {
-    const url = `${location.origin}/api/get-locations?city=${city}`;
+    const url = `${API_ROUTE}/get-locations?city=${city}`;
 
     const response = await fetch(url);
     if (!response.ok) {
@@ -77,7 +75,7 @@ export async function getCityFromGeolocation(
   longitude: number
 ) {
   try {
-    const url = `${location.origin}/api/get-city?latitude=${latitude}&longitude=${longitude}`;
+    const url = `${API_ROUTE}/get-city?latitude=${latitude}&longitude=${longitude}`;
     const response = await fetch(url);
     if (!response.ok) {
       throw new Error(`[${url}]: something went wrong.`);
